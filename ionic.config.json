@@ -1,0 +1,7 @@
+{
+  "name": "Magallanes",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
