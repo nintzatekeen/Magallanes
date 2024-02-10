@@ -3,6 +3,8 @@ import { IonSearchbar, IonContent, IonInfiniteScroll, IonList, IonAvatar, IonLab
 
 import { InfiniteScrollCustomEvent } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
+import { AnimeServiceService } from 'src/app/service/anime-service.service';
+import { Anime } from 'src/app/model/anime';
 @Component({
   selector: 'app-buscador',
   standalone: true,
@@ -12,26 +14,32 @@ import { CommonModule } from '@angular/common';
 })
 export class BuscadorComponent  implements OnInit {
 
-  constructor() { }
+  constructor(private animeService: AnimeServiceService) { }
 
-  items:String[] = [];
+  items:Anime[] = [];
+  pagina: number = 1;
 
   ngOnInit() {
+
     this.generateItems();
   }
 
   private generateItems() {
-    const count = this.items.length + 1;
-    for (let i = 0; i < 50; i++) {
-      this.items.push(`Item ${count + i}`);
-    }
+
+    this.animeService.buscarAnime({q: "one", limit: 50, page: this.pagina++}).subscribe((data: any) => {
+      data.data.forEach((o: any) => {
+        let anime: Anime = {id: o.id, title: o.title, image: o.images.jpg.image_url}
+        this.items.push(anime);
+        console.log(anime);
+      });
+    });
   }
 
   onIonInfinite(ev: InfiniteScrollCustomEvent) {
     this.generateItems();
     setTimeout(() => {
       (ev as InfiniteScrollCustomEvent).target.complete();
-    }, 500);
+    }, 1000);
   }
 
 }
