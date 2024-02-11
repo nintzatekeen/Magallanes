@@ -2,7 +2,7 @@
 <div class="contenedorscroll">
   <ion-content class="contenidoscroll" style="height: 100%;">
     <ion-list>
-      <ion-item *ngFor="let item of items; let index" [button]="true">
+      <ion-item *ngFor="let item of items; let index" [button]="true" (click)="seleccionarAnime(item)">
         <ion-avatar slot="start">
           <img [src]="item.image" alt="avatar" />
         </ion-avatar>

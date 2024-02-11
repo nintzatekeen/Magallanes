@@ -29,8 +29,8 @@ export class BuscadorComponent  implements OnInit {
 
     this.animeService.buscarAnime({q: this.busqueda, limit: 25, page: this.pagina++}).subscribe((data: any) => {
       console.log(data);
-      data.data.forEach((o: any) => {
-        let anime: Anime = {id: o.id, title: o.title, image: o.images.jpg.image_url}
+      data.data.forEach((a: any) => {
+        let anime: Anime = this.animeService.mapearAnime(a);
         this.items.push(anime);
         console.log(anime);
       });
@@ -58,5 +58,8 @@ export class BuscadorComponent  implements OnInit {
     }, 333);
   }
 
+  seleccionarAnime(event: any) {
+    console.log(event);
+  }
 
 }
