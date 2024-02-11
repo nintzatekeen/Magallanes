@@ -11,7 +11,10 @@ export class AnimeServiceService {
   constructor(private http: HttpClient) { }
 
   buscarAnime(params: any) {
-    return this.http.get(`https://api.jikan.moe/v4/anime`, params);
+
+
+
+    return this.http.get(`https://api.jikan.moe/v4/anime`, {params: params});
   }
 
 }

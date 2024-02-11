@@ -18,15 +18,17 @@ export class BuscadorComponent  implements OnInit {
 
   items:Anime[] = [];
   pagina: number = 1;
+  busqueda: string = '';
+  timeoutInput: any = null;
 
   ngOnInit() {
 
-    this.generateItems();
   }
 
   private generateItems() {
 
-    this.animeService.buscarAnime({q: "one", limit: 50, page: this.pagina++}).subscribe((data: any) => {
+    this.animeService.buscarAnime({q: this.busqueda, limit: 25, page: this.pagina++}).subscribe((data: any) => {
+      console.log(data);
       data.data.forEach((o: any) => {
         let anime: Anime = {id: o.id, title: o.title, image: o.images.jpg.image_url}
         this.items.push(anime);
@@ -41,5 +43,20 @@ export class BuscadorComponent  implements OnInit {
       (ev as InfiniteScrollCustomEvent).target.complete();
     }, 1000);
   }
+
+  buscar(event: any) {
+    this.pagina = 1;
+    this.busqueda = event?.detail?.value;
+    if (this.timeoutInput) {
+      clearTimeout(this.timeoutInput);
+    }
+    this.timeoutInput = setTimeout(() => {
+      this.items = [];
+      if (this.busqueda) {
+        this.generateItems();
+      }
+    }, 333);
+  }
+
 
 }
