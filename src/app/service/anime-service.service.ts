@@ -25,8 +25,9 @@ export class AnimeServiceService {
       status: raw.status,
       airing: raw.airing,
       score: raw.score,
-      from: raw.aired?.from ?? new Date(raw.aired?.from),
-      to: raw.aired?.to ?? new Date(raw.aired?.to),
+      from: raw.aired?.from ? new Date(raw.aired?.from) : null,
+      to: raw.aired?.to ? new Date(raw.aired?.to) : null,
+      relations: raw.relations ?? []
     }
   }
 

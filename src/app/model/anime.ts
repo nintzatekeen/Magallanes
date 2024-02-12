@@ -1,3 +1,5 @@
+import { Relation } from "./relation";
+
 export interface Anime {
     id: number;
     title: string;
@@ -7,6 +9,7 @@ export interface Anime {
     status: string;
     airing: boolean;
     score: number;
-    from: Date;
-    to: Date;
+    from: Date | null;
+    to: Date | null;
+    relations: Relation[]
 }
