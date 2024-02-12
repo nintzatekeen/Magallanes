@@ -1,5 +1,5 @@
 <ion-searchbar placeholder="Buscar anime" (ionInput)="buscar($event)"></ion-searchbar>
-<div class="contenedorscroll">
+<div class="contenedorscroll" *ngIf="busqueda">
   <ion-content class="contenidoscroll" style="height: 100%;">
     <ion-list *ngIf="busqueda">
       <ion-item *ngFor="let item of items; let index" [button]="true" (click)="seleccionarAnime(item)">

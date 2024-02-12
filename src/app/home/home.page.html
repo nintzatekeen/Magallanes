@@ -9,7 +9,14 @@
 <ion-grid class="ion-no-margin">
   <ion-row>
     <ion-col size-xs="12" size-sm="8" offset-sm="2" >
-      <app-buscador></app-buscador>
+      <app-buscador (alSeleccionar)="ver($event)"></app-buscador>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size-xs="12" size-sm="8" offset-sm="2">
+      <ion-list>
+        <app-anime *ngFor="let anime of animes; let i = index" [image]="anime.image" [indice]="i + 1" ></app-anime>
+      </ion-list>
     </ion-col>
   </ion-row>
 </ion-grid>

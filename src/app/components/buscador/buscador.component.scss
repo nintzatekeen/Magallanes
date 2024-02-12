@@ -2,6 +2,9 @@
     min-height: 250px;
     max-height: 500px;
     height: 60vh;
+    width: 100%;
+    z-index: 999;
+    position: absolute;
 }
 
 .contenidoscroll {

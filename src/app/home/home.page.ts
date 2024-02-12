@@ -1,14 +1,25 @@
 import { Component } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonRow, IonCol } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonRow, IonCol, IonList, IonItem } from '@ionic/angular/standalone';
 import { BuscadorComponent } from '../components/buscador/buscador.component';
+import { Anime } from '../model/anime';
+import { AnimeComponent } from '../anime/anime.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, BuscadorComponent, IonGrid, IonRow, IonCol],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, BuscadorComponent, AnimeComponent, IonGrid, IonRow, IonCol, IonList, IonItem, CommonModule],
 })
 export class HomePage {
+
+  animes: Anime[] = [];
+
   constructor() {}
+
+  ver(anime: Anime) {
+    this.animes.push(anime)
+    console.log(anime);
+  }
 }
