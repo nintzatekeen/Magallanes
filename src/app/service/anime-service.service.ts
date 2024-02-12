@@ -15,6 +15,10 @@ export class AnimeServiceService {
     return this.http.get(`https://api.jikan.moe/v4/anime`, {params: params});
   }
 
+  obtenerAnimeCompleto(id: number) {
+    return this.http.get(`https://api.jikan.moe/v4/anime/${id}/full`);
+  }
+
   mapearAnime(raw: any): Anime {
     return {
       id: raw.mal_id,

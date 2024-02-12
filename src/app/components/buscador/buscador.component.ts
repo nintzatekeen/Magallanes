@@ -20,6 +20,7 @@ export class BuscadorComponent  implements OnInit {
   pagina: number = 1;
   busqueda: string = '';
   timeoutInput: any = null;
+  seleccionado: Anime | null = null;
 
   ngOnInit() {
 
@@ -56,9 +57,18 @@ export class BuscadorComponent  implements OnInit {
     }, 333);
   }
 
-  seleccionarAnime(event: any) {
+  seleccionarAnime(ani: any) {
     this.limpiar();
-    console.log(event);
+    let id: number = ani.id;
+    if (id) {
+      this.animeService.obtenerAnimeCompleto(id).subscribe((data: any) => {
+        let raw: any = data?.data;
+        if (raw) {
+          this.seleccionado = this.animeService.mapearAnime(raw);
+          console.log(this.seleccionado);
+        }
+      });
+    }
   }
 
   limpiar() {
