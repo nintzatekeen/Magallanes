@@ -11,7 +11,7 @@ import { Anime } from '../model/anime';
   imports: [IonItem, IonGrid, IonAvatar, IonContent, IonRow, IonCol, IonBadge]
 })
 export class AnimeComponent  implements OnInit {
-  @Input() image: string | undefined;
+  @Input() anime: Anime | undefined;
   @Input() indice: number | undefined;
   
 
