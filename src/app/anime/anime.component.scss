@@ -24,4 +24,28 @@ ion-avatar {
     text-align: center;
     font-weight: bold;
     margin-top: .5em;
+    margin-bottom: .5em;
+}
+
+.contenedorIndice {
+    width: 7.5%;
+}
+.negrita {
+    font-weight: bold;
+}
+
+.contenedorDatos{
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+
+@media screen and (max-width: 450px) {
+    .colImagen {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    img {
+        height: 55% !important;
+    }
 }

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { IonSearchbar, IonContent, IonInfiniteScroll, IonList, IonAvatar, IonLabel, IonItem, IonInfiniteScrollContent} from '@ionic/angular/standalone';
 
 import { InfiniteScrollCustomEvent } from '@ionic/angular';
@@ -17,6 +17,9 @@ export class BuscadorComponent  implements OnInit {
   constructor(private animeService: AnimeServiceService) { }
   
   @Output() alSeleccionar = new EventEmitter();
+
+  @ViewChild('barraBusqueda', { static: false })
+  barraBusqueda!: IonSearchbar;
 
   items:Anime[] = [];
   pagina: number = 1;
@@ -74,6 +77,7 @@ export class BuscadorComponent  implements OnInit {
   }
 
   limpiar() {
+    this.barraBusqueda.value = "";
     this.busqueda = '';
     this.items = [];
     this.pagina = 1;

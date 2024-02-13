@@ -1,18 +1,50 @@
 <ion-item>
+
+  <div class="contenedorIndice negrita col-centrada">{{ indice }}</div>
+
   <ion-grid class="ion-no-padding">
     <ion-row style="min-height: 100px;">
-      <ion-col size-xs="2" size-xl="1" class="col-centrada"><ion-badge>{{indice}}</ion-badge></ion-col>
-      <ion-col size-xs="2" size-xl="1">
+      <ion-col size-xs="3" size-xl="1" class="colImagen">
         <img [src]="anime?.image" alt="avatar" class="imganime" />
-        <!-- <ion-avatar>
-          <img [src]="image" alt="avatar" class="imganime" />
-        </ion-avatar> -->
       </ion-col>
-      <ion-col size="10">
+      <ion-col size-xs="9" size-xl="11">
         <ion-grid class="ion-no-padding">
           <ion-row>
             <ion-col size="12">
               <div class="contenedorTitulo">{{ anime?.title }}</div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="3">
+              <div class="contenedorDatos ion-text-end">Tipo: </div> 
+            </ion-col>
+            <ion-col size="3">
+              <div class="contenedorDatos negrita">{{ anime?.type }}</div> 
+            </ion-col>
+            <ion-col size="6">
+              <div class="contenedorDatos">F.inicio: <span class="negrita">{{  anime?.from | date:'dd/MM/yyyy' }}</span></div> 
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="3">
+              <div class="contenedorDatos ion-text-end">Ep.: </div> 
+            </ion-col>
+            <ion-col size="3">
+              <div class="contenedorDatos negrita">{{ anime?.episodes }}</div> 
+            </ion-col>
+            <ion-col size="6">
+              <div class="contenedorDatos">F.fin: <span class="negrita">{{  anime?.to | date:'dd/MM/yyyy' }}</span></div> 
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size="3">
+              <div class="contenedorDatos ion-text-end">Nota: </div> 
+            </ion-col>
+            <ion-col size="3">
+              <div class="contenedorDatos negrita">{{ anime?.score }}</div> 
+            </ion-col>
+            <ion-col size="6">
+              <div class="contenedorDatos">Estado: <span class="negrita">{{ anime?.status }}</span></div> 
             </ion-col>
           </ion-row>
         </ion-grid>
