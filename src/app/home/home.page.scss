@@ -42,8 +42,10 @@ ion-button[shape=circle] {
 @media screen and (max-width: 600px) {
   .cardOpciones {
     position: fixed;
-    width: 70vw;
-    left: 15vw;
-    right: 15vw;
+    width: 80vw;
+    height: 210px;
+    top: calc((100% - 210px) / 2);
+    left: 10vw;
+    right: 10vw;
   }
 }
