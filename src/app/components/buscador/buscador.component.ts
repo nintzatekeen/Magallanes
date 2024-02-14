@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { IonSearchbar, IonContent, IonInfiniteScroll, IonList, IonAvatar, IonLabel, IonItem, IonInfiniteScrollContent} from '@ionic/angular/standalone';
+import { IonSearchbar, IonContent, IonInfiniteScroll, IonList, IonAvatar, IonLabel, IonItem, IonInfiniteScrollContent, IonButton, IonIcon, IonGrid, IonRow, IonCol} from '@ionic/angular/standalone';
 
 import { InfiniteScrollCustomEvent } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
@@ -10,16 +10,17 @@ import { Anime } from 'src/app/model/anime';
   standalone: true,
   templateUrl: './buscador.component.html',
   styleUrls: ['./buscador.component.scss'],
-  imports: [IonSearchbar, IonContent, IonInfiniteScroll, IonList, IonAvatar, IonLabel, IonItem, IonInfiniteScrollContent, CommonModule]
+  imports: [IonSearchbar, IonContent, IonInfiniteScroll, IonList, IonAvatar, IonLabel, IonItem, IonInfiniteScrollContent, IonButton, IonIcon, IonGrid, IonRow, IonCol, CommonModule]
 })
 export class BuscadorComponent  implements OnInit {
 
   constructor(private animeService: AnimeServiceService) { }
   
   @Output() alSeleccionar = new EventEmitter();
+  @Output() alAbrirFiltro = new EventEmitter();
 
-  @ViewChild('barraBusqueda', { static: false })
-  barraBusqueda!: IonSearchbar;
+  @ViewChild('barraBusqueda', { static: false }) barraBusqueda!: IonSearchbar;
+  @ViewChild('botonFiltro', { static: true }) botonFiltro!: any;
 
   items:Anime[] = [];
   pagina: number = 1;
@@ -74,6 +75,10 @@ export class BuscadorComponent  implements OnInit {
         }
       });
     }
+  }
+
+  mostrarFiltro() {
+    this.alAbrirFiltro.emit();
   }
 
   limpiar() {

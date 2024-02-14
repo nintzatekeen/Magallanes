@@ -23,7 +23,6 @@ export class HomePage {
   animes: Anime[] = [];
   filtroVisible = false;
   @ViewChild('tarjetaOpciones', { read: ElementRef }) tarjetaOpciones!: ElementRef;
-  @ViewChild('botonFiltro', { static: true }) botonFiltro!: any;
 
   @ViewChild('checkResumenes') checkResumenes!: IonCheckbox;
   @ViewChild('checkOtros') checkOtros!: IonCheckbox;
@@ -79,7 +78,7 @@ export class HomePage {
   @HostListener('document:mousedown', ['$event'])
   onGlobalClick(event: any): void {
     if (this.filtroVisible) {
-      if (!this.tarjetaOpciones.nativeElement.contains(event.target) && this.botonFiltro?.el != event.target) {
+      if (!this.tarjetaOpciones.nativeElement.contains(event.target)) {
         this.filtroVisible = false;
       }
     }

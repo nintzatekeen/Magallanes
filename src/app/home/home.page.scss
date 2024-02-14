@@ -26,12 +26,6 @@
   text-decoration: none;
 }
 
-ion-button[shape=circle] {
-  --border-radius: 50%;
-  width: 56px;
-  height: 56px;
-}
-
 .cardOpciones {
   z-index: 999;
   position: absolute;
@@ -47,6 +41,17 @@ ion-button[shape=circle] {
     top: calc((100% - 210px) / 2);
     left: 10vw;
     right: 10vw;
+  }
+
+  .fondoOpciones {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 998;
+    background: lightgray;
+    opacity: 0.5;
   }
 }
 

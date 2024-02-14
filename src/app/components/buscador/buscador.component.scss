@@ -3,10 +3,16 @@
     max-height: 500px;
     height: 60vh;
     width: 100%;
-    z-index: 999;
+    z-index: 997;
     position: absolute;
 }
 
 .contenidoscroll {
     height: 100%;
+}
+
+ion-button[shape=circle] {
+    --border-radius: 50%;
+    width: 56px;
+    height: 56px;
 }
