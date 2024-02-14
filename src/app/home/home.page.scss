@@ -25,3 +25,25 @@
 #container a {
   text-decoration: none;
 }
+
+ion-button[shape=circle] {
+  --border-radius: 50%;
+  width: 56px;
+  height: 56px;
+}
+
+.cardOpciones {
+  z-index: 999;
+  position: absolute;
+  right: 0;
+  width: 300px;
+}
+
+@media screen and (max-width: 600px) {
+  .cardOpciones {
+    position: fixed;
+    width: 70vw;
+    left: 15vw;
+    right: 15vw;
+  }
+}

@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { IonicModule } from '@ionic/angular'; 
-// import { IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonRow, IonCol, IonList, IonItem, IonButton, IonIcon } from '@ionic/angular/standalone';
+import { IonButton } from '@ionic/angular/standalone';
 import { BuscadorComponent } from '../components/buscador/buscador.component';
 import { Anime } from '../model/anime';
 import { AnimeComponent } from '../anime/anime.component';
@@ -17,6 +17,9 @@ import { CommonModule } from '@angular/common';
 export class HomePage {
 
   animes: Anime[] = [];
+  filtroVisible = false;
+  @ViewChild('tarjetaOpciones', { read: ElementRef }) tarjetaOpciones!: ElementRef;
+  @ViewChild('botonFiltro', { static: true }) botonFiltro!: any;
 
   constructor() {
   }
@@ -25,4 +28,18 @@ export class HomePage {
     this.animes.push(anime)
     console.log(anime);
   }
+
+  mostrarFiltro() {
+    this.filtroVisible = !this.filtroVisible;
+  }
+
+  @HostListener('document:mousedown', ['$event'])
+  onGlobalClick(event: any): void {
+    if (this.filtroVisible) {
+      if (!this.tarjetaOpciones.nativeElement.contains(event.target) && this.botonFiltro?.el != event.target) {
+        this.filtroVisible = false;
+      }
+    }
+  }
+
 }
