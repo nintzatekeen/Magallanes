@@ -8,10 +8,10 @@
 
 <ion-grid class="ion-no-margin">
   <ion-row class="barraSuperior">
-    <ion-col size-xs="12" size-sm="8" offset-sm="2" >
+    <ion-col size-xs="10" size-sm="8" offset-sm="2">
       <app-buscador (alSeleccionar)="ver($event)"></app-buscador>
     </ion-col>
-    <ion-col size-sm="1">
+    <ion-col size="2">
       <ion-button fill="clear" shape="circle" (click)="mostrarFiltro()" #botonFiltro>
         <ion-icon slot="icon-only" src="../../assets/icon/filter.svg"></ion-icon>
       </ion-button>
@@ -25,17 +25,17 @@
           <ion-grid>
             <ion-row>
               <ion-col size="6" offset="1">
-                <ion-checkbox labelPlacement="end" (ionChange)="cambiarFiltro('Summary')" #checkResumenes>Resúmenes</ion-checkbox>
+                <ion-checkbox labelPlacement="end" [(ngModel)]="summary" #checkResumenes>Resúmenes</ion-checkbox>
               </ion-col>
             </ion-row>
             <ion-row>
               <ion-col size="6" offset="1">
-                <ion-checkbox labelPlacement="end" (ionChange)="cambiarFiltro('Other')" #checkOtros>Otros</ion-checkbox>
+                <ion-checkbox labelPlacement="end" [(ngModel)]="other" #checkOtros>Otros</ion-checkbox>
               </ion-col>
             </ion-row>
             <ion-row>
               <ion-col size="6" offset="1">
-                <ion-checkbox labelPlacement="end" (ionChange)="cambiarFiltro('Character')" #checkCharacter>Character</ion-checkbox>
+                <ion-checkbox labelPlacement="end" [(ngModel)]="character" #checkCharacter>Character</ion-checkbox>
               </ion-col>
             </ion-row>
           </ion-grid>

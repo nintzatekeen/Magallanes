@@ -9,13 +9,14 @@ import { from } from 'rxjs';
 import { AnimeServiceService } from '../service/anime-service.service';
 import { RelationEntry } from '../model/relation_entry';
 import { Relation } from '../model/relation';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, BuscadorComponent, AnimeComponent, IonGrid, IonRow, IonCol, IonList, IonItem, IonButton, IonIcon, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCheckbox, CommonModule],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, BuscadorComponent, AnimeComponent, IonGrid, IonRow, IonCol, IonList, IonItem, IonButton, IonIcon, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCheckbox, CommonModule, FormsModule],
 })
 export class HomePage {
 
@@ -27,9 +28,26 @@ export class HomePage {
   @ViewChild('checkResumenes') checkResumenes!: IonCheckbox;
   @ViewChild('checkOtros') checkOtros!: IonCheckbox;
   @ViewChild('checkCharacter') checkCharacter!: IonCheckbox;
-  
 
-  filtros: string[] = []
+  
+  public get filtros() : string[] {
+    let ret: string[] = [];
+    if (this.summary) {
+      ret.push('Summary');
+    }
+    if (this.other) {
+      ret.push('Other');
+    }
+    if (this.character) {
+      ret.push('Character');
+    }
+
+    return ret;
+  }
+  
+  summary: boolean = false;
+  other: boolean = false;
+  character: boolean = false;
 
   constructor(private animeService: AnimeServiceService) {
   }
@@ -65,10 +83,6 @@ export class HomePage {
         this.filtroVisible = false;
       }
     }
-  }
-
-  cambiarFiltro(tipo: string) {
-    this.filtros.includes(tipo) ? this.filtros.splice(this.filtros.indexOf(tipo), 1) : this.filtros.push(tipo);
   }
 
 }
