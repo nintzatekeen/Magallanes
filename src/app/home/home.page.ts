@@ -1,18 +1,19 @@
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { IonicModule } from '@ionic/angular'; 
-import { IonButton } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonGrid, IonRow, IonCol, IonList, IonItem, IonIcon, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCheckbox } from '@ionic/angular/standalone';
 import { BuscadorComponent } from '../components/buscador/buscador.component';
 import { Anime } from '../model/anime';
 import { AnimeComponent } from '../anime/anime.component';
 import { CommonModule } from '@angular/common';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  // imports: [IonHeader, IonToolbar, IonTitle, IonContent, BuscadorComponent, AnimeComponent, IonGrid, IonRow, IonCol, IonList, IonItem, IonButton, IonIcon, CommonModule],
-  imports: [ IonicModule, CommonModule, BuscadorComponent, AnimeComponent]
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, BuscadorComponent, AnimeComponent, IonGrid, IonRow, IonCol, IonList, IonItem, IonButton, IonIcon, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCheckbox, CommonModule],
+  // imports: [ IonicModule, CommonModule, BuscadorComponent, AnimeComponent]
 })
 export class HomePage {
 
