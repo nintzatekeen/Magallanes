@@ -49,3 +49,12 @@ ion-button[shape=circle] {
     right: 10vw;
   }
 }
+
+.barraSuperior {
+  height: 75px;
+}
+.contentScroll {
+  width: 100%;
+  height: calc(100vh - 75px);
+
+}

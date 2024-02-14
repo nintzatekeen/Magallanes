@@ -6,6 +6,9 @@ import { Anime } from '../model/anime';
 import { AnimeComponent } from '../anime/anime.component';
 import { CommonModule } from '@angular/common';
 import { from } from 'rxjs';
+import { AnimeServiceService } from '../service/anime-service.service';
+import { RelationEntry } from '../model/relation_entry';
+import { Relation } from '../model/relation';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +16,6 @@ import { from } from 'rxjs';
   styleUrls: ['home.page.scss'],
   standalone: true,
   imports: [IonHeader, IonToolbar, IonTitle, IonContent, BuscadorComponent, AnimeComponent, IonGrid, IonRow, IonCol, IonList, IonItem, IonButton, IonIcon, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCheckbox, CommonModule],
-  // imports: [ IonicModule, CommonModule, BuscadorComponent, AnimeComponent]
 })
 export class HomePage {
 
@@ -22,12 +24,34 @@ export class HomePage {
   @ViewChild('tarjetaOpciones', { read: ElementRef }) tarjetaOpciones!: ElementRef;
   @ViewChild('botonFiltro', { static: true }) botonFiltro!: any;
 
-  constructor() {
+  @ViewChild('checkResumenes') checkResumenes!: IonCheckbox;
+  @ViewChild('checkOtros') checkOtros!: IonCheckbox;
+  @ViewChild('checkCharacter') checkCharacter!: IonCheckbox;
+  
+
+  filtros: string[] = []
+
+  constructor(private animeService: AnimeServiceService) {
   }
 
   ver(anime: Anime) {
-    this.animes.push(anime)
-    console.log(anime);
+
+    let entry: RelationEntry = {
+      mal_id: anime.id,
+      url: anime.url,
+      type: '',
+      name: ''
+    }
+
+    let rel: Relation = {
+      relation: '',
+      entry: [entry]
+    }
+
+    this.animes = [];
+    this.animeService.obtenidos.clear();
+    this.animeService.obtenidos.set(entry.mal_id, entry);
+    this.animeService.sagase(entry, this.filtros, this.animes);
   }
 
   mostrarFiltro() {
@@ -41,6 +65,10 @@ export class HomePage {
         this.filtroVisible = false;
       }
     }
+  }
+
+  cambiarFiltro(tipo: string) {
+    this.filtros.includes(tipo) ? this.filtros.splice(this.filtros.indexOf(tipo), 1) : this.filtros.push(tipo);
   }
 
 }
