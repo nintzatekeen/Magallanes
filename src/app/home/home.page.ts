@@ -1,6 +1,5 @@
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
-import { IonicModule } from '@ionic/angular'; 
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonGrid, IonRow, IonCol, IonList, IonItem, IonIcon, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCheckbox } from '@ionic/angular/standalone';
+import { IonToast, IonProgressBar, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonGrid, IonRow, IonCol, IonList, IonItem, IonIcon, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCheckbox } from '@ionic/angular/standalone';
 import { BuscadorComponent } from '../components/buscador/buscador.component';
 import { Anime } from '../model/anime';
 import { AnimeComponent } from '../anime/anime.component';
@@ -10,13 +9,14 @@ import { AnimeServiceService } from '../service/anime-service.service';
 import { RelationEntry } from '../model/relation_entry';
 import { Relation } from '../model/relation';
 import { FormsModule } from '@angular/forms';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, BuscadorComponent, AnimeComponent, IonGrid, IonRow, IonCol, IonList, IonItem, IonButton, IonIcon, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCheckbox, CommonModule, FormsModule],
+  imports: [IonToast, IonProgressBar, IonHeader, IonToolbar, IonTitle, IonContent, BuscadorComponent, AnimeComponent, IonGrid, IonRow, IonCol, IonList, IonItem, IonButton, IonIcon, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCheckbox, CommonModule, FormsModule],
 })
 export class HomePage {
 
@@ -27,6 +27,9 @@ export class HomePage {
   @ViewChild('checkResumenes') checkResumenes!: IonCheckbox;
   @ViewChild('checkOtros') checkOtros!: IonCheckbox;
   @ViewChild('checkCharacter') checkCharacter!: IonCheckbox;
+
+  barraProgreso = false;
+  abrirToast = false;
 
   
   public get filtros() : string[] {
@@ -48,7 +51,7 @@ export class HomePage {
   other: boolean = false;
   character: boolean = false;
 
-  constructor(private animeService: AnimeServiceService) {
+  constructor(private animeService: AnimeServiceService, private toastController: ToastController) {
   }
 
   ver(anime: Anime) {
@@ -68,7 +71,11 @@ export class HomePage {
     this.animes = [];
     this.animeService.obtenidos.clear();
     this.animeService.obtenidos.set(entry.mal_id, entry);
-    this.animeService.sagase(entry, this.filtros, this.animes);
+    this.barraProgreso = true;
+    this.animeService.sagase(entry, this.filtros, this.animes).then(() => {
+      this.barraProgreso = false;
+      this.presentToast('bottom');
+    })
   }
 
   mostrarFiltro() {
@@ -82,6 +89,16 @@ export class HomePage {
         this.filtroVisible = false;
       }
     }
+  }
+  
+  async presentToast(position: 'top' | 'middle' | 'bottom') {
+    const toast = await this.toastController.create({
+      message: `Búsqueda realizada; se encontraron ${this.animes.length} temporadas`,
+      duration: 5000,
+      position: position,
+    });
+
+    await toast.present();
   }
 
 }
