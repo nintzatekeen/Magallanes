@@ -3,6 +3,7 @@ import { DatePipe } from '@angular/common';
 
 import { IonItem, IonGrid, IonAvatar, IonContent, IonRow, IonCol, IonBadge } from '@ionic/angular/standalone';
 import { Anime } from '../model/anime';
+import { Browser } from '@capacitor/browser';
 
 @Component({
   standalone: true,
@@ -21,5 +22,11 @@ export class AnimeComponent  implements OnInit {
   }
 
   ngOnInit() {}
+
+  openCapacitorSite = async (url: string | undefined) => {
+    if (url) {
+      await Browser.open({ url: url });
+    }
+  };
 
 }
