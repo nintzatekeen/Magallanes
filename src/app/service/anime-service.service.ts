@@ -4,6 +4,7 @@ import { Anime } from '../model/anime';
 import { Relation } from '../model/relation';
 import { Utilidades } from '../utils/utilidades';
 import { RelationEntry } from '../model/relation_entry';
+import { UtilBD } from '../utils/util_bd';
 
 
 
@@ -11,6 +12,8 @@ import { RelationEntry } from '../model/relation_entry';
   providedIn: 'root'
 })
 export class AnimeServiceService {
+
+  baseDeDatos: any;
 
   obtenidos!: Map<number, RelationEntry>;
 
@@ -62,20 +65,60 @@ export class AnimeServiceService {
     return nuevasRelaciones;
   }
 
+  async consulta(id:number | undefined) {
+    return new Promise<Anime>((resolve, reject) => {
+      if (this.baseDeDatos && id) {
+        console.log(id);
+        this.baseDeDatos
+        .transaction("animes")
+        .objectStore("animes")
+        .get(id).onsuccess = (event: any) => {
+          let wea = event?.target?.result;
+          resolve(wea);
+        };
+      } else {
+        reject(null);
+      }
+    });
+  }
+
+  async guardar(anime: Anime) {
+    return new Promise<void>((resolve, reject) => {
+      if (this.baseDeDatos) {
+        let transaction = this.baseDeDatos.transaction(["animes"], "readwrite");
+        transaction.objectStore("animes").put(anime);
+        resolve();
+      }
+      reject();
+    });
+  }
+
   async sagase(entry: RelationEntry, omisiones: string[], lista: Anime[]) {
-    return new Promise<void>((resolve, reject) => setTimeout(async () => {
+    let id = entry.mal_id;
+
+    if (!this.baseDeDatos) {
+      this.baseDeDatos = await UtilBD.getBaseDeDatos();
+    }
+
+    let anime = await this.consulta(id);
+    if (anime && anime) {
+      return new Promise<void>(async (resolve, reject) => {
         try {
-            let id = entry.mal_id;
+          await this.manejarAnime(anime, omisiones, lista);
+          resolve();
+        } catch (error) {
+          reject(error);
+        }
+      });
+
+    } else {
+      return new Promise<void>((resolve, reject) => setTimeout(async () => {
+        try {
             this.obtenerAnimeCompleto(id).subscribe(async (raw: any) => {
               let anime: Anime = this.mapearAnime(raw?.data);
               if (anime) {
-                lista.push(anime);
-                lista.sort(Utilidades.comparador);
-                let relaciones = anime.relations;
-                let nuevasRelaciones = this.anadirRelaciones(relaciones, omisiones);
-                for await (let nuevaRelacion of nuevasRelaciones) {
-                  await this.sagase(nuevaRelacion, omisiones, lista);
-                }
+                this.guardar(anime);
+                await this.manejarAnime(anime, omisiones, lista);
                 resolve();
               }
             });
@@ -83,5 +126,17 @@ export class AnimeServiceService {
             reject(error);
         }
     }, 1000));
+    }
 }
+
+async manejarAnime(anime: any, omisiones: string[], lista: Anime[]) {
+  lista.push(anime);
+  lista.sort(Utilidades.comparador);
+  let relaciones = anime.relations;
+  let nuevasRelaciones = this.anadirRelaciones(relaciones, omisiones);
+  for await (let nuevaRelacion of nuevasRelaciones) {
+    await this.sagase(nuevaRelacion, omisiones, lista);
+  }
+}
+
 }
