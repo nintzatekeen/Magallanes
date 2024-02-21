@@ -1,5 +1,5 @@
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
-import { IonToast, IonProgressBar, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonGrid, IonRow, IonCol, IonList, IonItem, IonIcon, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCheckbox } from '@ionic/angular/standalone';
+import { IonAlert, IonToast, IonProgressBar, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonGrid, IonRow, IonCol, IonList, IonItem, IonIcon, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCheckbox } from '@ionic/angular/standalone';
 import { BuscadorComponent } from '../components/buscador/buscador.component';
 import { Anime } from '../model/anime';
 import { AnimeComponent } from '../anime/anime.component';
@@ -9,13 +9,14 @@ import { AnimeServiceService } from '../service/anime-service.service';
 import { RelationEntry } from '../model/relation_entry';
 import { Relation } from '../model/relation';
 import { FormsModule } from '@angular/forms';
+import { Browser } from '@capacitor/browser';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [IonToast, IonProgressBar, IonHeader, IonToolbar, IonTitle, IonContent, BuscadorComponent, AnimeComponent, IonGrid, IonRow, IonCol, IonList, IonItem, IonButton, IonIcon, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCheckbox, CommonModule, FormsModule],
+  imports: [IonAlert, IonToast, IonProgressBar, IonHeader, IonToolbar, IonTitle, IonContent, BuscadorComponent, AnimeComponent, IonGrid, IonRow, IonCol, IonList, IonItem, IonButton, IonIcon, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCheckbox, CommonModule, FormsModule],
 })
 export class HomePage {
 
@@ -30,9 +31,33 @@ export class HomePage {
 
   barraProgreso = false;
   isToastOpen = false;
+  isAlertOpen = false;
+  urlParaAbrir: string | undefined;
+
+  public alertButtons = [
+    {
+      text: 'No',
+      role: 'cancel',
+      handler: () => {
+        console.log('Alert canceled');
+      },
+    },
+    {
+      text: 'Sí',
+      role: 'confirm',
+      handler: async () => {
+        await Browser.open({ url: this.urlParaAbrir! });
+        this.urlParaAbrir = undefined;
+      },
+    },
+  ];
 
   setOpen(isOpen: boolean) {
     this.isToastOpen = isOpen;
+  }
+
+  setAlertOpen(isOpen: boolean) {
+    this.isAlertOpen = isOpen;
   }
 
   
@@ -85,6 +110,11 @@ export class HomePage {
 
   mostrarFiltro() {
     this.filtroVisible = !this.filtroVisible;
+  }
+
+  async abrirNavegador(url: string) {
+    this.urlParaAbrir = url;
+    this.isAlertOpen = true;
   }
 
   @HostListener('document:mousedown', ['$event'])

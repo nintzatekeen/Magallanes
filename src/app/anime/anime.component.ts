@@ -1,9 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DatePipe } from '@angular/common';
 
 import { IonItem, IonGrid, IonAvatar, IonContent, IonRow, IonCol, IonBadge } from '@ionic/angular/standalone';
 import { Anime } from '../model/anime';
-import { Browser } from '@capacitor/browser';
 
 @Component({
   standalone: true,
@@ -15,6 +14,8 @@ import { Browser } from '@capacitor/browser';
 export class AnimeComponent  implements OnInit {
   @Input() anime: Anime | undefined;
   @Input() indice: number | undefined;
+
+  @Output() alClicar = new EventEmitter();
   
 
 
@@ -23,9 +24,9 @@ export class AnimeComponent  implements OnInit {
 
   ngOnInit() {}
 
-  openCapacitorSite = async (url: string | undefined) => {
+  openCapacitorSite = (url: string | undefined) => {
     if (url) {
-      await Browser.open({ url: url });
+      this.alClicar.emit(url);
     }
   };
 
