@@ -53,3 +53,9 @@
     </ion-col>
   </ion-row>
 </ion-grid>
+<ion-toast
+[isOpen]="isToastOpen"
+[duration]="5000"
+(didDismiss)="setOpen(false)"
+#toastAviso
+></ion-toast>

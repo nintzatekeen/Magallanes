@@ -9,7 +9,6 @@ import { AnimeServiceService } from '../service/anime-service.service';
 import { RelationEntry } from '../model/relation_entry';
 import { Relation } from '../model/relation';
 import { FormsModule } from '@angular/forms';
-import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -27,9 +26,14 @@ export class HomePage {
   @ViewChild('checkResumenes') checkResumenes!: IonCheckbox;
   @ViewChild('checkOtros') checkOtros!: IonCheckbox;
   @ViewChild('checkCharacter') checkCharacter!: IonCheckbox;
+  @ViewChild('toastAviso') toastAviso!: IonToast;
 
   barraProgreso = false;
-  abrirToast = false;
+  isToastOpen = false;
+
+  setOpen(isOpen: boolean) {
+    this.isToastOpen = isOpen;
+  }
 
   
   public get filtros() : string[] {
@@ -51,7 +55,7 @@ export class HomePage {
   other: boolean = false;
   character: boolean = false;
 
-  constructor(private animeService: AnimeServiceService, private toastController: ToastController) {
+  constructor(private animeService: AnimeServiceService) {
   }
 
   ver(anime: Anime) {
@@ -74,7 +78,8 @@ export class HomePage {
     this.barraProgreso = true;
     this.animeService.sagase(entry, this.filtros, this.animes).then(() => {
       this.barraProgreso = false;
-      this.presentToast('bottom');
+      this.isToastOpen = true;
+      this.toastAviso.message = 'Se han encontrado ' + this.animes.length + ' resultados';
     })
   }
 
@@ -89,16 +94,6 @@ export class HomePage {
         this.filtroVisible = false;
       }
     }
-  }
-  
-  async presentToast(position: 'top' | 'middle' | 'bottom') {
-    const toast = await this.toastController.create({
-      message: `Búsqueda realizada; se encontraron ${this.animes.length} temporadas`,
-      duration: 5000,
-      position: position,
-    });
-
-    await toast.present();
   }
 
 }
