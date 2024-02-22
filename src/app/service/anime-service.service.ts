@@ -121,18 +121,23 @@ export class AnimeServiceService {
 
     } else {
       return new Promise<void>((resolve, reject) => setTimeout(async () => {
-        try {
-            this.obtenerAnimeCompleto(id).subscribe(async (raw: any) => {
-              let anime: Anime = this.mapearAnime(raw?.data);
-              if (anime) {
-                this.guardar(anime);
+        this.obtenerAnimeCompleto(id).subscribe({
+          next: async (raw: any) => {
+            let anime: Anime = this.mapearAnime(raw?.data);
+            if (anime) {
+              this.guardar(anime);
+              try {
                 await this.manejarAnime(anime, omisiones, lista);
                 resolve();
+              } catch (error) {
+                reject(error);
               }
-            });
-        } catch (error) {
-            reject(error);
-        }
+            } else {
+              reject();
+            }
+          },
+          error: (error) => {reject(error)}
+        });
     }, 1000));
     }
 }
