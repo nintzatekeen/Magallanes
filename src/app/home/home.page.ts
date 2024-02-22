@@ -4,7 +4,7 @@ import { BuscadorComponent } from '../components/buscador/buscador.component';
 import { Anime } from '../model/anime';
 import { AnimeComponent } from '../anime/anime.component';
 import { CommonModule } from '@angular/common';
-import { from } from 'rxjs';
+//import { from } from 'rxjs';
 import { AnimeServiceService } from '../service/anime-service.service';
 import { RelationEntry } from '../model/relation_entry';
 import { Relation } from '../model/relation';
@@ -38,9 +38,7 @@ export class HomePage {
     {
       text: 'No',
       role: 'cancel',
-      handler: () => {
-        console.log('Alert canceled');
-      },
+      handler: () => {},
     },
     {
       text: 'Sí',
@@ -92,20 +90,22 @@ export class HomePage {
       name: ''
     }
 
-    let rel: Relation = {
-      relation: '',
-      entry: [entry]
-    }
-
     this.animes = [];
     this.animeService.obtenidos.clear();
     this.animeService.obtenidos.set(entry.mal_id, entry);
     this.barraProgreso = true;
-    this.animeService.sagase(entry, this.filtros, this.animes).then(() => {
+    this.animeService
+    .sagase(entry, this.filtros, this.animes)
+    .then(() => {
       this.barraProgreso = false;
       this.isToastOpen = true;
       this.toastAviso.message = 'Se han encontrado ' + this.animes.length + ' resultados';
-    })
+    }).catch((error) => {
+      console.error(error);
+      this.barraProgreso = false;
+      this.isToastOpen = true;
+      this.toastAviso.message = 'Ha ocurrido un error; inténtelo de nuevo más adelante.';
+    });
   }
 
   mostrarFiltro() {

@@ -5,12 +5,10 @@ export class UtilBD {
             try {
                 let peticion = indexedDB.open("magallanes", 2);
                 peticion.onsuccess = () => {
-                    console.log(peticion.result);
                     resolve(peticion.result);
                 };
                 peticion.onerror = (error) => {
                     reject(error);
-
                 }
                 peticion.onupgradeneeded = () => {
                     let baseDeDatos = peticion.result;

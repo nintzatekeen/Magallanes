@@ -6,7 +6,7 @@ import { Utilidades } from '../utils/utilidades';
 import { RelationEntry } from '../model/relation_entry';
 import { UtilBD } from '../utils/util_bd';
 
-
+export const API_URL = "https://api.jikan.moe/v4";
 
 @Injectable({
   providedIn: 'root'
@@ -22,11 +22,11 @@ export class AnimeServiceService {
   }
 
   buscarAnime(params: any) {
-    return this.http.get(`https://api.jikan.moe/v4/anime`, {params: params});
+    return this.http.get(`${API_URL}/anime`, {params: params});
   }
 
   obtenerAnimeCompleto(id: number) {
-    return this.http.get(`https://api.jikan.moe/v4/anime/${id}/full`);
+    return this.http.get(`${API_URL}/anime/${id}/full`);
   }
 
   mapearAnime(raw: any): Anime {
@@ -67,29 +67,37 @@ export class AnimeServiceService {
 
   async consulta(id:number | undefined) {
     return new Promise<Anime>((resolve, reject) => {
-      if (this.baseDeDatos && id) {
-        console.log(id);
-        this.baseDeDatos
-        .transaction("animes")
-        .objectStore("animes")
-        .get(id).onsuccess = (event: any) => {
-          let wea = event?.target?.result;
-          resolve(wea);
-        };
-      } else {
-        reject(null);
+      try {
+        if (this.baseDeDatos && id) {
+          this.baseDeDatos
+          .transaction("animes")
+          .objectStore("animes")
+          .get(id).onsuccess = (event: any) => {
+            let wea = event?.target?.result;
+            resolve(wea);
+          };
+        } else {
+          reject();
+        }
+      } catch (error) {
+        reject(error);
       }
     });
   }
 
   async guardar(anime: Anime) {
     return new Promise<void>((resolve, reject) => {
-      if (this.baseDeDatos) {
-        let transaction = this.baseDeDatos.transaction(["animes"], "readwrite");
-        transaction.objectStore("animes").put(anime);
-        resolve();
+      try {
+        if (this.baseDeDatos) {
+          let transaction = this.baseDeDatos.transaction(["animes"], "readwrite");
+          transaction.objectStore("animes").put(anime);
+          resolve();
+        } else {
+          reject();
+        }
+      } catch (error) {
+        reject(); 
       }
-      reject();
     });
   }
 
@@ -101,7 +109,7 @@ export class AnimeServiceService {
     }
 
     let anime = await this.consulta(id);
-    if (anime && anime) {
+    if (anime) {
       return new Promise<void>(async (resolve, reject) => {
         try {
           await this.manejarAnime(anime, omisiones, lista);
