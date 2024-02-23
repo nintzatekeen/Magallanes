@@ -129,7 +129,9 @@ export class AnimeServiceService {
             } else {
               let anime: Anime = this.mapearAnime(raw?.data);
               if (anime) {
-                this.guardar(anime);
+                if (anime.to && anime.to < new Date()) {
+                  this.guardar(anime);
+                }
                 try {
                   await this.manejarAnime(anime, omisiones, lista, controlador);
                   resolve();
