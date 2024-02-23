@@ -77,6 +77,7 @@ export class HomePage {
   summary: boolean = false;
   other: boolean = false;
   character: boolean = false;
+  controladorBusqueda: any = {cancelar: false};
 
   constructor(private animeService: AnimeServiceService) {
   }
@@ -94,8 +95,9 @@ export class HomePage {
     this.animeService.obtenidos.clear();
     this.animeService.obtenidos.set(entry.mal_id, entry);
     this.barraProgreso = true;
+    this.controladorBusqueda.cancelar = false;
     this.animeService
-    .sagase(entry, this.filtros, this.animes)
+    .sagase(entry, this.filtros, this.animes, this.controladorBusqueda)
     .then(() => {
       this.barraProgreso = false;
       this.isToastOpen = true;
@@ -104,7 +106,7 @@ export class HomePage {
       console.error(error);
       this.barraProgreso = false;
       this.isToastOpen = true;
-      this.toastAviso.message = 'Ha ocurrido un error; inténtelo de nuevo más adelante.';
+      this.toastAviso.message = error ?? 'Ha ocurrido un error; inténtelo de nuevo más adelante.';
     });
   }
 
@@ -124,6 +126,22 @@ export class HomePage {
         this.filtroVisible = false;
       }
     }
+  }
+
+  getCapitulosTotales() {
+    if (this.animes) {
+      return this.animes.map(a => a.episodes).reduce((a, b) => a + b, 0);
+    }
+    
+    return 0;
+  }
+
+  cancelarBusqueda() {
+    this.controladorBusqueda.cancelar = true;
+  }
+
+  limpiarTodo() {
+    this.animes = [];
   }
 
 }

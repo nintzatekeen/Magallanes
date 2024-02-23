@@ -101,7 +101,7 @@ export class AnimeServiceService {
     });
   }
 
-  async sagase(entry: RelationEntry, omisiones: string[], lista: Anime[]) {
+  async sagase(entry: RelationEntry, omisiones: string[], lista: Anime[], controlador: any) {
     let id = entry.mal_id;
 
     if (!this.baseDeDatos) {
@@ -112,7 +112,7 @@ export class AnimeServiceService {
     if (anime) {
       return new Promise<void>(async (resolve, reject) => {
         try {
-          await this.manejarAnime(anime, omisiones, lista);
+          await this.manejarAnime(anime, omisiones, lista, controlador);
           resolve();
         } catch (error) {
           reject(error);
@@ -123,17 +123,22 @@ export class AnimeServiceService {
       return new Promise<void>((resolve, reject) => setTimeout(async () => {
         this.obtenerAnimeCompleto(id).subscribe({
           next: async (raw: any) => {
-            let anime: Anime = this.mapearAnime(raw?.data);
-            if (anime) {
-              this.guardar(anime);
-              try {
-                await this.manejarAnime(anime, omisiones, lista);
-                resolve();
-              } catch (error) {
-                reject(error);
-              }
+
+            if (controlador && controlador.cancelar) {
+              reject("Búsqueda cancelada");
             } else {
-              reject();
+              let anime: Anime = this.mapearAnime(raw?.data);
+              if (anime) {
+                this.guardar(anime);
+                try {
+                  await this.manejarAnime(anime, omisiones, lista, controlador);
+                  resolve();
+                } catch (error) {
+                  reject(error);
+                }
+              } else {
+                reject();
+              }
             }
           },
           error: (error) => {reject(error)}
@@ -142,13 +147,13 @@ export class AnimeServiceService {
     }
 }
 
-async manejarAnime(anime: any, omisiones: string[], lista: Anime[]) {
+async manejarAnime(anime: any, omisiones: string[], lista: Anime[], controlador: any) {
   lista.push(anime);
   lista.sort(Utilidades.comparador);
   let relaciones = anime.relations;
   let nuevasRelaciones = this.anadirRelaciones(relaciones, omisiones);
   for await (let nuevaRelacion of nuevasRelaciones) {
-    await this.sagase(nuevaRelacion, omisiones, lista);
+    await this.sagase(nuevaRelacion, omisiones, lista, controlador);
   }
 }
 
