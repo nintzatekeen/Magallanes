@@ -4,13 +4,16 @@ import { Anime } from '../model/anime';
 import { Relation } from '../model/relation';
 import { Utilidades } from '../utils/utilidades';
 import { RelationEntry } from '../model/relation_entry';
+import { UtilBD } from '../utils/util_bd';
 
-
+export const API_URL = "https://api.jikan.moe/v4";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AnimeServiceService {
+
+  baseDeDatos: any;
 
   obtenidos!: Map<number, RelationEntry>;
 
@@ -19,11 +22,11 @@ export class AnimeServiceService {
   }
 
   buscarAnime(params: any) {
-    return this.http.get(`https://api.jikan.moe/v4/anime`, {params: params});
+    return this.http.get(`${API_URL}/anime`, {params: params});
   }
 
   obtenerAnimeCompleto(id: number) {
-    return this.http.get(`https://api.jikan.moe/v4/anime/${id}/full`);
+    return this.http.get(`${API_URL}/anime/${id}/full`);
   }
 
   mapearAnime(raw: any): Anime {
@@ -62,26 +65,98 @@ export class AnimeServiceService {
     return nuevasRelaciones;
   }
 
-  async sagase(entry: RelationEntry, omisiones: string[], lista: Anime[]) {
-    return new Promise<void>((resolve, reject) => setTimeout(async () => {
+  async consulta(id:number | undefined) {
+    return new Promise<Anime>((resolve, reject) => {
+      try {
+        if (this.baseDeDatos && id) {
+          this.baseDeDatos
+          .transaction("animes")
+          .objectStore("animes")
+          .get(id).onsuccess = (event: any) => {
+            let wea = event?.target?.result;
+            resolve(wea);
+          };
+        } else {
+          reject();
+        }
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
+  async guardar(anime: Anime) {
+    return new Promise<void>((resolve, reject) => {
+      try {
+        if (this.baseDeDatos) {
+          let transaction = this.baseDeDatos.transaction(["animes"], "readwrite");
+          transaction.objectStore("animes").put(anime);
+          resolve();
+        } else {
+          reject();
+        }
+      } catch (error) {
+        reject(); 
+      }
+    });
+  }
+
+  async sagase(entry: RelationEntry, omisiones: string[], lista: Anime[], controlador: any) {
+    let id = entry.mal_id;
+
+    if (!this.baseDeDatos) {
+      this.baseDeDatos = await UtilBD.getBaseDeDatos();
+    }
+
+    let anime = await this.consulta(id);
+    if (anime) {
+      return new Promise<void>(async (resolve, reject) => {
         try {
-            let id = entry.mal_id;
-            this.obtenerAnimeCompleto(id).subscribe(async (raw: any) => {
+          await this.manejarAnime(anime, omisiones, lista, controlador);
+          resolve();
+        } catch (error) {
+          reject(error);
+        }
+      });
+
+    } else {
+      return new Promise<void>((resolve, reject) => setTimeout(async () => {
+        this.obtenerAnimeCompleto(id).subscribe({
+          next: async (raw: any) => {
+
+            if (controlador && controlador.cancelar) {
+              reject("Búsqueda cancelada");
+            } else {
               let anime: Anime = this.mapearAnime(raw?.data);
               if (anime) {
-                lista.push(anime);
-                lista.sort(Utilidades.comparador);
-                let relaciones = anime.relations;
-                let nuevasRelaciones = this.anadirRelaciones(relaciones, omisiones);
-                for await (let nuevaRelacion of nuevasRelaciones) {
-                  await this.sagase(nuevaRelacion, omisiones, lista);
+                if (anime.to && anime.to < new Date()) {
+                  this.guardar(anime);
                 }
-                resolve();
+                try {
+                  await this.manejarAnime(anime, omisiones, lista, controlador);
+                  resolve();
+                } catch (error) {
+                  reject(error);
+                }
+              } else {
+                reject();
               }
-            });
-        } catch (error) {
-            reject(error);
-        }
+            }
+          },
+          error: (error) => {reject(error)}
+        });
     }, 1000));
+    }
 }
+
+async manejarAnime(anime: any, omisiones: string[], lista: Anime[], controlador: any) {
+  lista.push(anime);
+  lista.sort(Utilidades.comparador);
+  let relaciones = anime.relations;
+  let nuevasRelaciones = this.anadirRelaciones(relaciones, omisiones);
+  for await (let nuevaRelacion of nuevasRelaciones) {
+    await this.sagase(nuevaRelacion, omisiones, lista, controlador);
+  }
+}
+
 }

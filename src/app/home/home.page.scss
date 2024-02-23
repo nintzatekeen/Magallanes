@@ -61,5 +61,21 @@
 .contentScroll {
   width: 100%;
   height: calc(100vh - 75px - 15px);
+}
 
+.contentScroll > ion-item {
+  height: 50px;
+}
+
+.contentScroll > ion-content {
+  height: calc(100% - 50px);
+}
+
+.flexTextoCentradoVerticalmente {
+  display: flex;
+  align-items: center;
+}
+
+ion-list:last-child {
+  margin-bottom: 100px;
 }
