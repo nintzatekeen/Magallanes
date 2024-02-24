@@ -10,19 +10,21 @@ import { RelationEntry } from '../model/relation_entry';
 import { Relation } from '../model/relation';
 import { FormsModule } from '@angular/forms';
 import { Browser } from '@capacitor/browser';
+import { TarjetaOpcionesComponent } from '../tarjeta-opciones/tarjeta-opciones.component';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [IonAlert, IonToast, IonProgressBar, IonHeader, IonToolbar, IonTitle, IonContent, BuscadorComponent, AnimeComponent, IonGrid, IonRow, IonCol, IonList, IonItem, IonButton, IonIcon, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCheckbox, CommonModule, FormsModule],
+  imports: [TarjetaOpcionesComponent, IonAlert, IonToast, IonProgressBar, IonHeader, IonToolbar, IonTitle, IonContent, BuscadorComponent, AnimeComponent, IonGrid, IonRow, IonCol, IonList, IonItem, IonButton, IonIcon, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCheckbox, CommonModule, FormsModule],
 })
 export class HomePage {
 
   animes: Anime[] = [];
-  filtroVisible = false;
-  @ViewChild('tarjetaOpciones', { read: ElementRef }) tarjetaOpciones!: ElementRef;
+  
+  @ViewChild('filtroBusqueda') filtroBusqueda!: TarjetaOpcionesComponent;
+  @ViewChild('filtroVisibilidad') filtroVisibilidad!: TarjetaOpcionesComponent;
 
   @ViewChild('checkResumenes') checkResumenes!: IonCheckbox;
   @ViewChild('checkOtros') checkOtros!: IonCheckbox;
@@ -111,21 +113,16 @@ export class HomePage {
   }
 
   mostrarFiltro() {
-    this.filtroVisible = !this.filtroVisible;
+    this.filtroBusqueda.filtroVisible = true;
+  }
+
+  mostrarVisibilidad() {
+    this.filtroVisibilidad.filtroVisible = true;
   }
 
   async abrirNavegador(url: string) {
     this.urlParaAbrir = url;
     this.isAlertOpen = true;
-  }
-
-  @HostListener('document:mousedown', ['$event'])
-  onGlobalClick(event: any): void {
-    if (this.filtroVisible) {
-      if (!this.tarjetaOpciones.nativeElement.contains(event.target)) {
-        this.filtroVisible = false;
-      }
-    }
   }
 
   getCapitulosTotales() {

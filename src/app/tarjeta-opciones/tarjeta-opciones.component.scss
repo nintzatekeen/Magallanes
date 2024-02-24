@@ -1,0 +1,28 @@
+.cardOpciones {
+    z-index: 999;
+    position: absolute;
+    right: 0;
+    width: 300px;
+  }
+  
+  @media screen and (max-width: 600px) {
+    .cardOpciones {
+      position: fixed;
+      width: 80vw;
+      height: 210px;
+      top: calc((100% - 210px) / 2);
+      left: 10vw;
+      right: 10vw;
+    }
+  
+    .fondoOpciones {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 998;
+      background: lightgray;
+      opacity: 0.5;
+    }
+  }
