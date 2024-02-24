@@ -70,10 +70,20 @@ ion-list:last-child {
   height: 100%;
   display: flex;
   flex-wrap: wrap;
+  row-gap: 2em;
 }
 
 .itemFiltroVisualizacion {
   width: 50%;
   display: flex;
   align-items: center;
+}
+
+@media screen and (max-width: 600px) {
+  app-tarjeta-opciones *{
+    font-size: 1.1em;
+  }
+  app-tarjeta-opciones ion-checkbox {
+    --size: 32px;
+  }
 }
