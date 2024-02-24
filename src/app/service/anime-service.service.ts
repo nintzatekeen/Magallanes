@@ -5,6 +5,7 @@ import { Relation } from '../model/relation';
 import { Utilidades } from '../utils/utilidades';
 import { RelationEntry } from '../model/relation_entry';
 import { UtilBD } from '../utils/util_bd';
+import { ControladorBusqueda } from '../model/controlador_busqueda';
 
 export const API_URL = "https://api.jikan.moe/v4";
 
@@ -101,7 +102,7 @@ export class AnimeServiceService {
     });
   }
 
-  async sagase(entry: RelationEntry, omisiones: string[], lista: Anime[], controlador: any) {
+  async sagase(entry: RelationEntry, omisiones: string[], lista: Anime[], controlador: ControladorBusqueda) {
     let id = entry.mal_id;
 
     if (!this.baseDeDatos) {
@@ -149,8 +150,9 @@ export class AnimeServiceService {
     }
 }
 
-async manejarAnime(anime: any, omisiones: string[], lista: Anime[], controlador: any) {
+async manejarAnime(anime: any, omisiones: string[], lista: Anime[], controlador: ControladorBusqueda) {
   lista.push(anime);
+  controlador.alAnadir(anime);
   lista.sort(Utilidades.comparador);
   let relaciones = anime.relations;
   let nuevasRelaciones = this.anadirRelaciones(relaciones, omisiones);

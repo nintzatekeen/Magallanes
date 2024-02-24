@@ -10,29 +10,48 @@ import { RelationEntry } from '../model/relation_entry';
 import { Relation } from '../model/relation';
 import { FormsModule } from '@angular/forms';
 import { Browser } from '@capacitor/browser';
+import { TarjetaOpcionesComponent } from '../tarjeta-opciones/tarjeta-opciones.component';
+import { ControladorBusqueda } from '../model/controlador_busqueda';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [IonAlert, IonToast, IonProgressBar, IonHeader, IonToolbar, IonTitle, IonContent, BuscadorComponent, AnimeComponent, IonGrid, IonRow, IonCol, IonList, IonItem, IonButton, IonIcon, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCheckbox, CommonModule, FormsModule],
+  imports: [TarjetaOpcionesComponent, IonAlert, IonToast, IonProgressBar, IonHeader, IonToolbar, IonTitle, IonContent, BuscadorComponent, AnimeComponent, IonGrid, IonRow, IonCol, IonList, IonItem, IonButton, IonIcon, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCheckbox, CommonModule, FormsModule],
 })
 export class HomePage {
 
   animes: Anime[] = [];
-  filtroVisible = false;
-  @ViewChild('tarjetaOpciones', { read: ElementRef }) tarjetaOpciones!: ElementRef;
+  
+  @ViewChild('filtroBusqueda') filtroBusqueda!: TarjetaOpcionesComponent;
+  @ViewChild('filtroVisibilidad') filtroVisibilidad!: TarjetaOpcionesComponent;
 
   @ViewChild('checkResumenes') checkResumenes!: IonCheckbox;
   @ViewChild('checkOtros') checkOtros!: IonCheckbox;
   @ViewChild('checkCharacter') checkCharacter!: IonCheckbox;
   @ViewChild('toastAviso') toastAviso!: IonToast;
+  @ViewChild('alerta') alerta!: IonAlert;
+  
 
   barraProgreso = false;
   isToastOpen = false;
   isAlertOpen = false;
   urlParaAbrir: string | undefined;
+
+  tipos: Map<string, boolean>;
+
+  
+  public get clavesDeTipos() : string[] {
+    return [...this.tipos.keys()]?.sort();
+  }
+
+  
+  public get animesVisibles() : Anime[] {
+    return this.animes?.filter(a => this.tipos.has(a.type) ? this.tipos.get(a.type) : true)
+  }
+  
+  
 
   public alertButtons = [
     {
@@ -44,8 +63,12 @@ export class HomePage {
       text: 'Sí',
       role: 'confirm',
       handler: async () => {
-        await Browser.open({ url: this.urlParaAbrir! });
-        this.urlParaAbrir = undefined;
+        if (this.urlParaAbrir) {
+          await Browser.open({ url: this.urlParaAbrir! });
+          this.urlParaAbrir = undefined;
+        } else {
+          this.limpiarTodo();
+        }
       },
     },
   ];
@@ -77,9 +100,20 @@ export class HomePage {
   summary: boolean = false;
   other: boolean = false;
   character: boolean = false;
-  controladorBusqueda: any = {cancelar: false};
+  controladorBusqueda: ControladorBusqueda;
 
   constructor(private animeService: AnimeServiceService) {
+    this.tipos = new Map();
+    this.controladorBusqueda = new ControladorBusqueda();
+    this.controladorBusqueda.alAnadir = (a) => {
+      if (a?.type) {
+        if (this.tipos.has(a.type)) {
+          this.tipos.set(a.type, this.tipos.get(a.type) === true)
+        } else {
+          this.tipos.set(a.type, true)
+        }
+      }
+    };
   }
 
   ver(anime: Anime) {
@@ -96,6 +130,7 @@ export class HomePage {
     this.animeService.obtenidos.set(entry.mal_id, entry);
     this.barraProgreso = true;
     this.controladorBusqueda.cancelar = false;
+    this.tipos.clear();
     this.animeService
     .sagase(entry, this.filtros, this.animes, this.controladorBusqueda)
     .then(() => {
@@ -111,28 +146,23 @@ export class HomePage {
   }
 
   mostrarFiltro() {
-    this.filtroVisible = !this.filtroVisible;
+    this.filtroBusqueda.filtroVisible = true;
+  }
+
+  mostrarVisibilidad() {
+    this.filtroVisibilidad.filtroVisible = true;
   }
 
   async abrirNavegador(url: string) {
     this.urlParaAbrir = url;
+    this.cambiarMensajeAlerta("Abrir enlace", "Se va a abrir un enlace externo; ¿desea continuar?");
     this.isAlertOpen = true;
   }
 
-  @HostListener('document:mousedown', ['$event'])
-  onGlobalClick(event: any): void {
-    if (this.filtroVisible) {
-      if (!this.tarjetaOpciones.nativeElement.contains(event.target)) {
-        this.filtroVisible = false;
-      }
-    }
-  }
-
   getCapitulosTotales() {
-    if (this.animes) {
-      return this.animes.map(a => a.episodes).reduce((a, b) => a + b, 0);
+    if (this.animesVisibles) {
+      return this.animesVisibles.map(a => a.episodes).reduce((a, b) => a + b, 0);
     }
-    
     return 0;
   }
 
@@ -144,4 +174,18 @@ export class HomePage {
     this.animes = [];
   }
 
+  solicitarLimpiar() {
+    this.cambiarMensajeAlerta("Limpiar búsqueda", "¿Desea eliminar los resultados de su búsqueda?");
+    this.isAlertOpen = true;
+  }
+
+  cambiarVisualizacion(tipo: string) {
+    this.tipos.set(tipo, !this.tipos.get(tipo));
+    console.log(this.tipos);
+  }
+
+  cambiarMensajeAlerta(titulo: string, mensaje: string) {
+    this.alerta.header = titulo;
+    this.alerta.message = mensaje;
+  }
 }
