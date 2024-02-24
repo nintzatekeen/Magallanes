@@ -49,17 +49,18 @@
               <ion-button class="ion-float-right" fill="clear" shape="circle" (click)="mostrarVisibilidad()" id="botonVisibilidad" #botonVisibilidad>
                 <ion-icon slot="icon-only" src="assets/icon/visibility.svg"></ion-icon>
               </ion-button>
-              <app-tarjeta-opciones class="filtroVisibilidad" titulo="Mostrar" subtitulo="" #filtroVisibilidad>
-                <div class="contenedorFiltroVisualizacion">
-                  <div class="itemFiltroVisualizacion" *ngFor="let tipo of clavesDeTipos">
-                    <ion-checkbox justify="start" labelPlacement="end" [checked]="tipos.get(tipo)" (ionChange)="cambiarVisualizacion(tipo)">{{ tipo }}</ion-checkbox>
-                  </div>
-                </div>
-              </app-tarjeta-opciones>
             </ion-col>
           </ion-row>
         </ion-grid>
       </ion-item>
+
+      <app-tarjeta-opciones class="filtroVisibilidad" titulo="Mostrar" subtitulo="" #filtroVisibilidad>
+        <div class="contenedorFiltroVisualizacion">
+          <div class="itemFiltroVisualizacion" *ngFor="let tipo of clavesDeTipos">
+            <ion-checkbox justify="start" labelPlacement="end" [checked]="tipos.get(tipo)" (ionChange)="cambiarVisualizacion(tipo)">{{ tipo }}</ion-checkbox>
+          </div>
+        </div>
+      </app-tarjeta-opciones>
 
       <ion-content [scrollEvents]="true">        
         <ion-list class="ion-no-padding">
