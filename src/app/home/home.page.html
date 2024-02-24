@@ -50,7 +50,11 @@
                 <ion-icon slot="icon-only" src="assets/icon/visibility.svg"></ion-icon>
               </ion-button>
               <app-tarjeta-opciones class="filtroVisibilidad" titulo="Mostrar" subtitulo="" #filtroVisibilidad>
-                <div style="width: 100%; height: 100%;">PENE</div>
+                <div class="contenedorFiltroVisualizacion">
+                  <div class="itemFiltroVisualizacion" *ngFor="let tipo of clavesDeTipos">
+                    <ion-checkbox justify="start" labelPlacement="end" [checked]="tipos.get(tipo)" (ionChange)="cambiarVisualizacion(tipo)">{{ tipo }}</ion-checkbox>
+                  </div>
+                </div>
               </app-tarjeta-opciones>
             </ion-col>
           </ion-row>
@@ -59,7 +63,7 @@
 
       <ion-content [scrollEvents]="true">        
         <ion-list class="ion-no-padding">
-          <app-anime *ngFor="let anime of animes; let i = index" [indice]="i + 1" [anime]="anime" (alClicar)="abrirNavegador($event)" ></app-anime>
+          <app-anime *ngFor="let anime of animesVisibles; let i = index" [indice]="i + 1" [anime]="anime" (alClicar)="abrirNavegador($event)" ></app-anime>
         </ion-list>
       </ion-content>
     </ion-col>

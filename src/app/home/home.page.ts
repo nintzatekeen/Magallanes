@@ -36,6 +36,20 @@ export class HomePage {
   isAlertOpen = false;
   urlParaAbrir: string | undefined;
 
+  tipos: Map<string, boolean>;
+
+  
+  public get clavesDeTipos() : string[] {
+    return [...this.tipos.keys()]?.sort();
+  }
+
+  
+  public get animesVisibles() : Anime[] {
+    return this.animes?.filter(a => this.tipos.has(a.type) ? this.tipos.get(a.type) : true)
+  }
+  
+  
+
   public alertButtons = [
     {
       text: 'No',
@@ -82,6 +96,7 @@ export class HomePage {
   controladorBusqueda: any = {cancelar: false};
 
   constructor(private animeService: AnimeServiceService) {
+    this.tipos = new Map();
   }
 
   ver(anime: Anime) {
@@ -98,9 +113,11 @@ export class HomePage {
     this.animeService.obtenidos.set(entry.mal_id, entry);
     this.barraProgreso = true;
     this.controladorBusqueda.cancelar = false;
+    this.tipos.clear();
     this.animeService
     .sagase(entry, this.filtros, this.animes, this.controladorBusqueda)
     .then(() => {
+      this.cargarTipos();
       this.barraProgreso = false;
       this.isToastOpen = true;
       this.toastAviso.message = 'Se han encontrado ' + this.animes.length + ' resultados';
@@ -126,8 +143,8 @@ export class HomePage {
   }
 
   getCapitulosTotales() {
-    if (this.animes) {
-      return this.animes.map(a => a.episodes).reduce((a, b) => a + b, 0);
+    if (this.animesVisibles) {
+      return this.animesVisibles.map(a => a.episodes).reduce((a, b) => a + b, 0);
     }
     
     return 0;
@@ -141,4 +158,13 @@ export class HomePage {
     this.animes = [];
   }
 
+  cargarTipos() {
+    this.tipos.clear();
+    this.animes.map(a => a.type).forEach(t => this.tipos.set(t, true));
+  }
+
+  cambiarVisualizacion(tipo: string) {
+    this.tipos.set(tipo, !this.tipos.get(tipo));
+    console.log(this.tipos);
+  }
 }
