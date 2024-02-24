@@ -45,7 +45,7 @@
             <ion-col size="6" class="flexTextoCentradoVerticalmente">Capítulos: {{ getCapitulosTotales() }}</ion-col>
             <ion-col size="6" style="z-index: 3;">
               <ion-button class="ion-float-right" shape="round" *ngIf="barraProgreso" (click)="cancelarBusqueda()">Cancelar</ion-button>
-              <ion-button class="ion-float-right" shape="round" *ngIf="!barraProgreso && animes" (click)="limpiarTodo()">Limpiar</ion-button>
+              <ion-button class="ion-float-right" shape="round" *ngIf="!barraProgreso && animes" (click)="solicitarLimpiar()">Limpiar</ion-button>
               <ion-button class="ion-float-right" fill="clear" shape="circle" (click)="mostrarVisibilidad()" id="botonVisibilidad" #botonVisibilidad>
                 <ion-icon slot="icon-only" src="assets/icon/visibility.svg"></ion-icon>
               </ion-button>
@@ -77,8 +77,6 @@
 ></ion-toast>
 <ion-alert
   [isOpen]="isAlertOpen"
-  header="Abrir enlace"
-  message="Se va a abrir un enlace externo; ¿desea continuar?"
   [buttons]="alertButtons"
   (didDismiss)="setAlertOpen(false)"
-></ion-alert>
+#alerta></ion-alert>

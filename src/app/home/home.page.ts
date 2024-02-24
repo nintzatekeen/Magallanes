@@ -11,6 +11,7 @@ import { Relation } from '../model/relation';
 import { FormsModule } from '@angular/forms';
 import { Browser } from '@capacitor/browser';
 import { TarjetaOpcionesComponent } from '../tarjeta-opciones/tarjeta-opciones.component';
+import { ControladorBusqueda } from '../model/controlador_busqueda';
 
 @Component({
   selector: 'app-home',
@@ -30,6 +31,8 @@ export class HomePage {
   @ViewChild('checkOtros') checkOtros!: IonCheckbox;
   @ViewChild('checkCharacter') checkCharacter!: IonCheckbox;
   @ViewChild('toastAviso') toastAviso!: IonToast;
+  @ViewChild('alerta') alerta!: IonAlert;
+  
 
   barraProgreso = false;
   isToastOpen = false;
@@ -60,8 +63,12 @@ export class HomePage {
       text: 'Sí',
       role: 'confirm',
       handler: async () => {
-        await Browser.open({ url: this.urlParaAbrir! });
-        this.urlParaAbrir = undefined;
+        if (this.urlParaAbrir) {
+          await Browser.open({ url: this.urlParaAbrir! });
+          this.urlParaAbrir = undefined;
+        } else {
+          this.limpiarTodo();
+        }
       },
     },
   ];
@@ -93,10 +100,20 @@ export class HomePage {
   summary: boolean = false;
   other: boolean = false;
   character: boolean = false;
-  controladorBusqueda: any = {cancelar: false};
+  controladorBusqueda: ControladorBusqueda;
 
   constructor(private animeService: AnimeServiceService) {
     this.tipos = new Map();
+    this.controladorBusqueda = new ControladorBusqueda();
+    this.controladorBusqueda.alAnadir = (a) => {
+      if (a?.type) {
+        if (this.tipos.has(a.type)) {
+          this.tipos.set(a.type, this.tipos.get(a.type) === true)
+        } else {
+          this.tipos.set(a.type, true)
+        }
+      }
+    };
   }
 
   ver(anime: Anime) {
@@ -117,7 +134,6 @@ export class HomePage {
     this.animeService
     .sagase(entry, this.filtros, this.animes, this.controladorBusqueda)
     .then(() => {
-      this.cargarTipos();
       this.barraProgreso = false;
       this.isToastOpen = true;
       this.toastAviso.message = 'Se han encontrado ' + this.animes.length + ' resultados';
@@ -139,6 +155,7 @@ export class HomePage {
 
   async abrirNavegador(url: string) {
     this.urlParaAbrir = url;
+    this.cambiarMensajeAlerta("Abrir enlace", "Se va a abrir un enlace externo; ¿desea continuar?");
     this.isAlertOpen = true;
   }
 
@@ -146,7 +163,6 @@ export class HomePage {
     if (this.animesVisibles) {
       return this.animesVisibles.map(a => a.episodes).reduce((a, b) => a + b, 0);
     }
-    
     return 0;
   }
 
@@ -158,13 +174,18 @@ export class HomePage {
     this.animes = [];
   }
 
-  cargarTipos() {
-    this.tipos.clear();
-    this.animes.map(a => a.type).forEach(t => this.tipos.set(t, true));
+  solicitarLimpiar() {
+    this.cambiarMensajeAlerta("Limpiar búsqueda", "¿Desea eliminar los resultados de su búsqueda?");
+    this.isAlertOpen = true;
   }
 
   cambiarVisualizacion(tipo: string) {
     this.tipos.set(tipo, !this.tipos.get(tipo));
     console.log(this.tipos);
+  }
+
+  cambiarMensajeAlerta(titulo: string, mensaje: string) {
+    this.alerta.header = titulo;
+    this.alerta.message = mensaje;
   }
 }
