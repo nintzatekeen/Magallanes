@@ -16,3 +16,8 @@ ion-button[shape=circle] {
     width: 56px;
     height: 56px;
 }
+
+.colBotones {
+    display: flex;
+    flex-direction: row;
+}

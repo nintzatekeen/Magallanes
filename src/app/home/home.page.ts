@@ -1,5 +1,5 @@
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
-import { IonAlert, IonToast, IonProgressBar, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonGrid, IonRow, IonCol, IonList, IonItem, IonIcon, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCheckbox } from '@ionic/angular/standalone';
+import { IonButtons, IonModal, IonAlert, IonToast, IonProgressBar, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonGrid, IonRow, IonCol, IonList, IonItem, IonIcon, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCheckbox } from '@ionic/angular/standalone';
 import { BuscadorComponent } from '../components/buscador/buscador.component';
 import { Anime } from '../model/anime';
 import { AnimeComponent } from '../anime/anime.component';
@@ -18,7 +18,7 @@ import { ControladorBusqueda } from '../model/controlador_busqueda';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [TarjetaOpcionesComponent, IonAlert, IonToast, IonProgressBar, IonHeader, IonToolbar, IonTitle, IonContent, BuscadorComponent, AnimeComponent, IonGrid, IonRow, IonCol, IonList, IonItem, IonButton, IonIcon, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCheckbox, CommonModule, FormsModule],
+  imports: [TarjetaOpcionesComponent, IonButtons, IonModal, IonAlert, IonToast, IonProgressBar, IonHeader, IonToolbar, IonTitle, IonContent, BuscadorComponent, AnimeComponent, IonGrid, IonRow, IonCol, IonList, IonItem, IonButton, IonIcon, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCheckbox, CommonModule, FormsModule],
 })
 export class HomePage {
 
@@ -37,6 +37,7 @@ export class HomePage {
   barraProgreso = false;
   isToastOpen = false;
   isAlertOpen = false;
+  isModalOpen = false;
   urlParaAbrir: string | undefined;
 
   tipos: Map<string, boolean>;
@@ -81,6 +82,9 @@ export class HomePage {
     this.isAlertOpen = isOpen;
   }
 
+  setModalOpen(isOpen: boolean) {
+    this.isModalOpen = isOpen;
+  }
   
   public get filtros() : string[] {
     let ret: string[] = [];
@@ -147,6 +151,10 @@ export class HomePage {
 
   mostrarFiltro() {
     this.filtroBusqueda.filtroVisible = true;
+  }
+
+  abrirAjustes() {
+    this.setModalOpen(true);
   }
 
   mostrarVisibilidad() {
