@@ -1,10 +1,23 @@
 .contenedorscroll {
-    min-height: 250px;
-    max-height: 500px;
+    // min-height: 250px;
+    // max-height: 500px;
     height: 60vh;
     width: 100%;
     z-index: 997;
     position: absolute;
+}
+
+@media screen and (max-width: 600px) {
+    .barra {
+        height: 75px;
+    }
+    .contenedorscroll {
+        height: calc(100vh - 75px);
+    }
+
+    .contenedorscroll ion-infinite-scroll {
+        margin-bottom: 10vh;
+    }
 }
 
 .contenidoscroll {

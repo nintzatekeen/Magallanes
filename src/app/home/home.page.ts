@@ -222,13 +222,13 @@ export class HomePage {
     this.alerta.message = mensaje;
   }
 
-    // Listen for the toggle check/uncheck to toggle the dark theme
-    toggleChange(ev: any) {
-      this.toggleDarkTheme(ev.detail.checked);
-    }
-  
-    // Add or remove the "dark" class on the document body
-    toggleDarkTheme(shouldAdd: boolean) {
-      document.body.classList.toggle('dark', shouldAdd);
-    }
+  // Listen for the toggle check/uncheck to toggle the dark theme
+  toggleChange(ev: any) {
+    this.toggleDarkTheme(ev.detail.checked);
+  }
+
+  // Add or remove the "dark" class on the document body
+  toggleDarkTheme(shouldAdd: boolean) {
+    document.body.classList.toggle('dark', shouldAdd);
+  }
 }
