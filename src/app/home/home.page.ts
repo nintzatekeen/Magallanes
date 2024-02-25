@@ -1,5 +1,5 @@
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
-import { IonButtons, IonModal, IonAlert, IonToast, IonProgressBar, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonGrid, IonRow, IonCol, IonList, IonItem, IonIcon, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCheckbox } from '@ionic/angular/standalone';
+import { IonToggle, IonButtons, IonModal, IonAlert, IonToast, IonProgressBar, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonGrid, IonRow, IonCol, IonList, IonItem, IonIcon, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCheckbox } from '@ionic/angular/standalone';
 import { BuscadorComponent } from '../components/buscador/buscador.component';
 import { Anime } from '../model/anime';
 import { AnimeComponent } from '../anime/anime.component';
@@ -18,7 +18,7 @@ import { ControladorBusqueda } from '../model/controlador_busqueda';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [TarjetaOpcionesComponent, IonButtons, IonModal, IonAlert, IonToast, IonProgressBar, IonHeader, IonToolbar, IonTitle, IonContent, BuscadorComponent, AnimeComponent, IonGrid, IonRow, IonCol, IonList, IonItem, IonButton, IonIcon, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCheckbox, CommonModule, FormsModule],
+  imports: [TarjetaOpcionesComponent, IonToggle, IonButtons, IonModal, IonAlert, IonToast, IonProgressBar, IonHeader, IonToolbar, IonTitle, IonContent, BuscadorComponent, AnimeComponent, IonGrid, IonRow, IonCol, IonList, IonItem, IonButton, IonIcon, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCheckbox, CommonModule, FormsModule],
 })
 export class HomePage {
 
@@ -52,6 +52,31 @@ export class HomePage {
     return this.animes?.filter(a => this.tipos.has(a.type) ? this.tipos.get(a.type) : true)
   }
   
+  
+  public get isDarkTheme() : boolean {
+    return document.body.classList.contains('dark');
+  }
+  
+
+  themeToggle = false;
+
+  ngOnInit() {
+    // Use matchMedia to check the user preference
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+    // Initialize the dark theme based on the initial
+    // value of the prefers-color-scheme media query
+    this.initializeDarkTheme(prefersDark.matches);
+
+    // Listen for changes to the prefers-color-scheme media query
+    prefersDark.addEventListener('change', (mediaQuery) => this.initializeDarkTheme(mediaQuery.matches));
+  }
+
+  // Check/uncheck the toggle and update the theme based on isDark
+  initializeDarkTheme(isDark: boolean) {
+    this.themeToggle = isDark;
+    this.toggleDarkTheme(isDark);
+  }
   
 
   public alertButtons = [
@@ -196,4 +221,14 @@ export class HomePage {
     this.alerta.header = titulo;
     this.alerta.message = mensaje;
   }
+
+    // Listen for the toggle check/uncheck to toggle the dark theme
+    toggleChange(ev: any) {
+      this.toggleDarkTheme(ev.detail.checked);
+    }
+  
+    // Add or remove the "dark" class on the document body
+    toggleDarkTheme(shouldAdd: boolean) {
+      document.body.classList.toggle('dark', shouldAdd);
+    }
 }
