@@ -10,3 +10,6 @@ resultados de los animes que no se encuentran en emisión —y, por lo tanto, su
 cachean para que en la siguiente búsqueda no tenga esa limitación.
 
 Si surgiere cualquier problema, dichos resultados cacheados pueden ser eliminados desde el menú de ajustes.
+
+
+<div align=center><a target="_blank" href="https://nintzatekeen.github.io/Magallanes/">ACCEDE DESDE AQUÍ</a></div>
