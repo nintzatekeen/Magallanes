@@ -1,10 +1,10 @@
 {
   "configVersion": 1,
-  "timestamp": 1708966244518,
+  "timestamp": 1708966444782,
   "index": "https://nintzatekeen.github.io/Magallanes/index.html",
   "assetGroups": [
     {
-      "name": "app",
+      "name": "Magallanes",
       "installMode": "prefetch",
       "updateMode": "prefetch",
       "cacheQueryOptions": {
@@ -20,6 +20,7 @@
         "https://nintzatekeen.github.io/Magallanes/800.7cceaf0f40a0db6c.js",
         "https://nintzatekeen.github.io/Magallanes/88.d7b2ac6c3f60bb88.js",
         "https://nintzatekeen.github.io/Magallanes/924.494a8f738484a704.js",
+        "https://nintzatekeen.github.io/Magallanes/assets/icon/favicon.ico",
         "https://nintzatekeen.github.io/Magallanes/index.html",
         "https://nintzatekeen.github.io/Magallanes/main.f230ec1cd3cccc42.js",
         "https://nintzatekeen.github.io/Magallanes/manifest.webmanifest",
@@ -37,7 +38,6 @@
         "ignoreVary": true
       },
       "urls": [
-        "https://nintzatekeen.github.io/Magallanes/assets/icon/favicon.ico",
         "https://nintzatekeen.github.io/Magallanes/assets/icon/filter.svg",
         "https://nintzatekeen.github.io/Magallanes/assets/icon/filter_alt.svg",
         "https://nintzatekeen.github.io/Magallanes/assets/icon/settings.svg",
