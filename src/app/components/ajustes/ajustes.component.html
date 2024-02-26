@@ -11,7 +11,8 @@
     <ion-content class="ion-padding">
       <ion-list class="ion-no-padding ion-no-margin">
         <ion-item>
-          <ion-toggle [checked]="isDarkTheme" (ionChange)="toggleChange($event)">Modo oscuro</ion-toggle>
+          <ion-toggle [checked]="esModoOscuro" (ionChange)="alternarModo($event)" [disabled]="toggleDisabled()" #toggleModo>Modo oscuro</ion-toggle>
+          <ion-button (click)="cambiarAuto()" [fill]="fillBotonAuto()" #botonAuto>Auto</ion-button>
         </ion-item>
       </ion-list>
     </ion-content>
