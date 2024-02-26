@@ -1,12 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonModal, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonList, IonItem, IonToggle } from '@ionic/angular/standalone';
+import { IonAlert, IonModal, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonList, IonItem, IonToggle } from '@ionic/angular/standalone';
+import { UtilBD } from 'src/app/utils/util_bd';
 
 @Component({
   standalone: true,
   selector: 'app-ajustes',
   templateUrl: './ajustes.component.html',
   styleUrls: ['./ajustes.component.scss'],
-  imports: [IonModal, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonList, IonItem, IonToggle],
+  imports: [IonAlert, IonModal, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonList, IonItem, IonToggle],
 })
 export class AjustesComponent  implements OnInit {
 
@@ -14,9 +15,32 @@ export class AjustesComponent  implements OnInit {
 
   @ViewChild('botonAuto') botonAuto!: IonButton;
   @ViewChild('toggleModo') toggleModo!: IonToggle;
+  @ViewChild('alerta') alerta!: IonAlert;
 
   themeToggle = false;
   abrirModal = false;
+
+  isAlertOpen = false;
+
+  setAlertOpen(isOpen: boolean) {
+    this.isAlertOpen = isOpen;
+  }
+
+
+  public alertButtons = [
+    {
+      text: 'No',
+      role: 'cancel',
+      handler: () => {},
+    },
+    {
+      text: 'Sí',
+      role: 'confirm',
+      handler: () => {
+        UtilBD.borrarCache(() => {});
+      },
+    },
+  ];
 
   public get isDarkTheme() : boolean {
     return document.body.classList.contains('dark');
@@ -28,7 +52,6 @@ export class AjustesComponent  implements OnInit {
 
   ngOnInit() {
     this.initializeDarkTheme(this.esModoOscuro);
-
   }
 
   fillBotonAuto(): string {
@@ -84,5 +107,37 @@ export class AjustesComponent  implements OnInit {
     let oscuro = ev.detail.checked;
     window.localStorage.setItem('modo', oscuro ? "true" : "false"); 
     this.toggleDarkTheme(oscuro);
+  }
+
+  obtenerEstimacionDeCache(callback : (tamano: string) => void) {
+    navigator.storage.estimate().then(estimacion => {
+      let uso = estimacion.usage ?? 0;
+      let cadena = "0 B";
+
+      if (uso < 1000) {
+        cadena = `${uso} B`;
+      } else if (uso >= 1000 && uso < 1000000) {
+        let dec = uso / 1000;
+        let formateado = (Math.round(dec * 100) / 100).toFixed(2);
+        cadena = `${formateado} KB`;
+      } else {
+        let dec = uso / 1000000;
+        let formateado = (Math.round(dec * 100) / 100).toFixed(2);
+        cadena = `${formateado} MB`;
+      }
+      callback(cadena);
+    });
+  }
+
+  cambiarMensajeAlerta(titulo: string, mensaje: string) {
+    this.alerta.header = titulo;
+    this.alerta.message = mensaje;
+  }
+
+  borrarCache() {
+    this.obtenerEstimacionDeCache((tamano) => {
+      this.cambiarMensajeAlerta("Borrar cache", `¿Está seguro que quiere borrar el cache (${tamano})?`);
+      this.setAlertOpen(true);
+    });
   }
 }
