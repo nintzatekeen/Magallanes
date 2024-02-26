@@ -69,3 +69,6 @@ Thumbs.db
 
 #Proyecto generado de Android
 /android
+
+#scripts
+desplegar.sh

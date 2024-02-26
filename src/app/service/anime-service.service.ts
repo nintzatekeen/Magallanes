@@ -130,7 +130,7 @@ export class AnimeServiceService {
             } else {
               let anime: Anime = this.mapearAnime(raw?.data);
               if (anime) {
-                if (anime.to && anime.to < new Date()) {
+                if (anime?.status?.toUpperCase() == "FINISHED AIRING") {
                   this.guardar(anime);
                 }
                 try {
