@@ -1,24 +1,23 @@
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
-import { IonAlert, IonToast, IonProgressBar, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonGrid, IonRow, IonCol, IonList, IonItem, IonIcon, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCheckbox } from '@ionic/angular/standalone';
+import { IonToggle, IonButtons, IonModal, IonAlert, IonToast, IonProgressBar, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonGrid, IonRow, IonCol, IonList, IonItem, IonIcon, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCheckbox } from '@ionic/angular/standalone';
 import { BuscadorComponent } from '../components/buscador/buscador.component';
 import { Anime } from '../model/anime';
-import { AnimeComponent } from '../anime/anime.component';
+import { AnimeComponent } from '../components/anime/anime.component';
 import { CommonModule } from '@angular/common';
-//import { from } from 'rxjs';
 import { AnimeServiceService } from '../service/anime-service.service';
 import { RelationEntry } from '../model/relation_entry';
-import { Relation } from '../model/relation';
 import { FormsModule } from '@angular/forms';
 import { Browser } from '@capacitor/browser';
-import { TarjetaOpcionesComponent } from '../tarjeta-opciones/tarjeta-opciones.component';
+import { TarjetaOpcionesComponent } from '../components/tarjeta-opciones/tarjeta-opciones.component';
 import { ControladorBusqueda } from '../model/controlador_busqueda';
+import { AjustesComponent } from '../components/ajustes/ajustes.component';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [TarjetaOpcionesComponent, IonAlert, IonToast, IonProgressBar, IonHeader, IonToolbar, IonTitle, IonContent, BuscadorComponent, AnimeComponent, IonGrid, IonRow, IonCol, IonList, IonItem, IonButton, IonIcon, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCheckbox, CommonModule, FormsModule],
+  imports: [AjustesComponent, TarjetaOpcionesComponent, IonToggle, IonButtons, IonModal, IonAlert, IonToast, IonProgressBar, IonHeader, IonToolbar, IonTitle, IonContent, BuscadorComponent, AnimeComponent, IonGrid, IonRow, IonCol, IonList, IonItem, IonButton, IonIcon, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCheckbox, CommonModule, FormsModule],
 })
 export class HomePage {
 
@@ -26,6 +25,7 @@ export class HomePage {
   
   @ViewChild('filtroBusqueda') filtroBusqueda!: TarjetaOpcionesComponent;
   @ViewChild('filtroVisibilidad') filtroVisibilidad!: TarjetaOpcionesComponent;
+  @ViewChild('modalAjustes') modalAjustes!: AjustesComponent;
 
   @ViewChild('checkResumenes') checkResumenes!: IonCheckbox;
   @ViewChild('checkOtros') checkOtros!: IonCheckbox;
@@ -50,8 +50,6 @@ export class HomePage {
   public get animesVisibles() : Anime[] {
     return this.animes?.filter(a => this.tipos.has(a.type) ? this.tipos.get(a.type) : true)
   }
-  
-  
 
   public alertButtons = [
     {
@@ -80,7 +78,6 @@ export class HomePage {
   setAlertOpen(isOpen: boolean) {
     this.isAlertOpen = isOpen;
   }
-
   
   public get filtros() : string[] {
     let ret: string[] = [];
@@ -147,6 +144,10 @@ export class HomePage {
 
   mostrarFiltro() {
     this.filtroBusqueda.filtroVisible = true;
+  }
+
+  abrirAjustes() {
+    this.modalAjustes.abrir();
   }
 
   mostrarVisibilidad() {

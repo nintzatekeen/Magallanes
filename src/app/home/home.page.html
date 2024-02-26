@@ -9,7 +9,7 @@
 <ion-grid class="ion-no-margin">
   <ion-row class="barraSuperior">
     <ion-col size-xs="12" size-sm="10">
-      <app-buscador (alSeleccionar)="ver($event)" (alAbrirFiltro)="mostrarFiltro()"></app-buscador>
+      <app-buscador (alSeleccionar)="ver($event)" (alAbrirFiltro)="mostrarFiltro()" (alAbrirAjustes)="abrirAjustes()"></app-buscador>
       <app-tarjeta-opciones titulo="Filtro de búsqueda" subtitulo="Omitir:" #filtroBusqueda>
         <ion-grid>
           <ion-row>
@@ -29,6 +29,12 @@
           </ion-row>
         </ion-grid>
       </app-tarjeta-opciones>
+    </ion-col>
+    <ion-col size-sm="2" class="ion-hide-sm-down flexCenterRight">
+      <ion-button fill="clear" shape="circle" (click)="abrirAjustes()">
+        <ion-icon slot="start" src="assets/icon/settings.svg"></ion-icon>
+        Ajustes
+      </ion-button>
     </ion-col>
   </ion-row>
   <ion-row *ngIf="barraProgreso">
@@ -80,4 +86,6 @@
   [isOpen]="isAlertOpen"
   [buttons]="alertButtons"
   (didDismiss)="setAlertOpen(false)"
-#alerta></ion-alert>
+  #alerta
+></ion-alert>
+<app-ajustes #modalAjustes></app-ajustes>

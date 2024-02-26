@@ -18,9 +18,9 @@ export class BuscadorComponent  implements OnInit {
   
   @Output() alSeleccionar = new EventEmitter();
   @Output() alAbrirFiltro = new EventEmitter();
+  @Output() alAbrirAjustes = new EventEmitter();
 
   @ViewChild('barraBusqueda', { static: false }) barraBusqueda!: IonSearchbar;
-  @ViewChild('botonFiltro', { static: true }) botonFiltro!: any;
 
   items:Anime[] = [];
   pagina: number = 1;
@@ -79,6 +79,10 @@ export class BuscadorComponent  implements OnInit {
 
   mostrarFiltro() {
     this.alAbrirFiltro.emit();
+  }
+
+  mostrarAjustes() {
+    this.alAbrirAjustes.emit();
   }
 
   limpiar() {

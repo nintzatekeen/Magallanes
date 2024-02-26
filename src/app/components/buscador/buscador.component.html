@@ -1,11 +1,16 @@
 <ion-grid class="ion-no-padding ion-no-margin">
-  <ion-row class="ion-no-padding ion-no-margin">
-    <ion-col size="10">
+  <ion-row class="ion-no-padding ion-no-margin barra">
+    <ion-col size-xs="8" size-sm="10">
       <ion-searchbar #barraBusqueda placeholder="Buscar anime" (ionInput)="buscar($event)"></ion-searchbar>
     </ion-col>
     <ion-col size="2">
-      <ion-button fill="clear" shape="circle" (click)="mostrarFiltro()" #botonFiltro>
-        <ion-icon slot="icon-only" src="assets/icon/filter.svg"></ion-icon>
+      <ion-button fill="clear" shape="circle" (click)="mostrarFiltro()">
+        <ion-icon slot="icon-only" src="assets/icon/filter_alt.svg"></ion-icon>
+      </ion-button>
+      </ion-col>
+      <ion-col size-xs="2" size-sm="0" class="ion-hide-sm-up">
+      <ion-button fill="clear" shape="circle" (click)="mostrarAjustes()">
+        <ion-icon slot="icon-only" src="assets/icon/settings.svg"></ion-icon>
       </ion-button>
     </ion-col>
   </ion-row>

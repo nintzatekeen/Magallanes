@@ -79,6 +79,18 @@ ion-list:last-child {
   align-items: center;
 }
 
+.flexCenterRight {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+
+.botonSuperior[shape=circle] {
+  --border-radius: 50%;
+  width: 56px;
+  height: 56px;
+}
+
 @media screen and (max-width: 600px) {
   app-tarjeta-opciones *{
     font-size: 1.1em;

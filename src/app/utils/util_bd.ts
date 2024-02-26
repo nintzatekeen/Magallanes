@@ -22,6 +22,16 @@ export class UtilBD {
                 reject(error);
             }
         });
-      }
+    }
+
+    static borrarCache(callback: () => void) {
+        UtilBD.getBaseDeDatos().then(db => {
+            db.transaction(["animes"], "readwrite")
+            .objectStore("animes")
+            .clear().onsuccess = (() => {
+              callback();
+            });
+          });
+    }
     
 }

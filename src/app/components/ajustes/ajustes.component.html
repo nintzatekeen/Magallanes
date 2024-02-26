@@ -1,0 +1,29 @@
+<ion-modal [isOpen]="abrirModal" [backdropDismiss]="false">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>AJUSTES</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="setModalOpen(false)">Cerrar</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <ion-list class="ion-no-padding ion-no-margin">
+        <ion-item>
+          <ion-toggle [checked]="esModoOscuro" (ionChange)="alternarModo($event)" [disabled]="toggleDisabled()" #toggleModo>Modo oscuro</ion-toggle>
+          <ion-button (click)="cambiarAuto()" [fill]="fillBotonAuto()" #botonAuto>Auto</ion-button>
+        </ion-item>
+        <ion-item [button]="true" (click)="borrarCache()">
+          Borrar caché
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+<ion-alert
+  [isOpen]="isAlertOpen"
+  [buttons]="alertButtons"
+  (didDismiss)="setAlertOpen(false)"
+  #alerta
+></ion-alert>
