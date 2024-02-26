@@ -4,21 +4,20 @@ import { BuscadorComponent } from '../components/buscador/buscador.component';
 import { Anime } from '../model/anime';
 import { AnimeComponent } from '../components/anime/anime.component';
 import { CommonModule } from '@angular/common';
-//import { from } from 'rxjs';
 import { AnimeServiceService } from '../service/anime-service.service';
 import { RelationEntry } from '../model/relation_entry';
-import { Relation } from '../model/relation';
 import { FormsModule } from '@angular/forms';
 import { Browser } from '@capacitor/browser';
 import { TarjetaOpcionesComponent } from '../components/tarjeta-opciones/tarjeta-opciones.component';
 import { ControladorBusqueda } from '../model/controlador_busqueda';
+import { AjustesComponent } from '../components/ajustes/ajustes.component';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [TarjetaOpcionesComponent, IonToggle, IonButtons, IonModal, IonAlert, IonToast, IonProgressBar, IonHeader, IonToolbar, IonTitle, IonContent, BuscadorComponent, AnimeComponent, IonGrid, IonRow, IonCol, IonList, IonItem, IonButton, IonIcon, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCheckbox, CommonModule, FormsModule],
+  imports: [AjustesComponent, TarjetaOpcionesComponent, IonToggle, IonButtons, IonModal, IonAlert, IonToast, IonProgressBar, IonHeader, IonToolbar, IonTitle, IonContent, BuscadorComponent, AnimeComponent, IonGrid, IonRow, IonCol, IonList, IonItem, IonButton, IonIcon, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCheckbox, CommonModule, FormsModule],
 })
 export class HomePage {
 
@@ -26,6 +25,7 @@ export class HomePage {
   
   @ViewChild('filtroBusqueda') filtroBusqueda!: TarjetaOpcionesComponent;
   @ViewChild('filtroVisibilidad') filtroVisibilidad!: TarjetaOpcionesComponent;
+  @ViewChild('modalAjustes') modalAjustes!: AjustesComponent;
 
   @ViewChild('checkResumenes') checkResumenes!: IonCheckbox;
   @ViewChild('checkOtros') checkOtros!: IonCheckbox;
@@ -37,7 +37,6 @@ export class HomePage {
   barraProgreso = false;
   isToastOpen = false;
   isAlertOpen = false;
-  isModalOpen = false;
   urlParaAbrir: string | undefined;
 
   tipos: Map<string, boolean>;
@@ -51,33 +50,6 @@ export class HomePage {
   public get animesVisibles() : Anime[] {
     return this.animes?.filter(a => this.tipos.has(a.type) ? this.tipos.get(a.type) : true)
   }
-  
-  
-  public get isDarkTheme() : boolean {
-    return document.body.classList.contains('dark');
-  }
-  
-
-  themeToggle = false;
-
-  ngOnInit() {
-    // Use matchMedia to check the user preference
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-
-    // Initialize the dark theme based on the initial
-    // value of the prefers-color-scheme media query
-    this.initializeDarkTheme(prefersDark.matches);
-
-    // Listen for changes to the prefers-color-scheme media query
-    prefersDark.addEventListener('change', (mediaQuery) => this.initializeDarkTheme(mediaQuery.matches));
-  }
-
-  // Check/uncheck the toggle and update the theme based on isDark
-  initializeDarkTheme(isDark: boolean) {
-    this.themeToggle = isDark;
-    this.toggleDarkTheme(isDark);
-  }
-  
 
   public alertButtons = [
     {
@@ -105,10 +77,6 @@ export class HomePage {
 
   setAlertOpen(isOpen: boolean) {
     this.isAlertOpen = isOpen;
-  }
-
-  setModalOpen(isOpen: boolean) {
-    this.isModalOpen = isOpen;
   }
   
   public get filtros() : string[] {
@@ -179,7 +147,7 @@ export class HomePage {
   }
 
   abrirAjustes() {
-    this.setModalOpen(true);
+    this.modalAjustes.abrir();
   }
 
   mostrarVisibilidad() {
@@ -220,15 +188,5 @@ export class HomePage {
   cambiarMensajeAlerta(titulo: string, mensaje: string) {
     this.alerta.header = titulo;
     this.alerta.message = mensaje;
-  }
-
-  // Listen for the toggle check/uncheck to toggle the dark theme
-  toggleChange(ev: any) {
-    this.toggleDarkTheme(ev.detail.checked);
-  }
-
-  // Add or remove the "dark" class on the document body
-  toggleDarkTheme(shouldAdd: boolean) {
-    document.body.classList.toggle('dark', shouldAdd);
   }
 }

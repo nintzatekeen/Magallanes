@@ -1,0 +1,19 @@
+<ion-modal [isOpen]="abrirModal" [backdropDismiss]="false">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>AJUSTES</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="setModalOpen(false)">Cerrar</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <ion-list class="ion-no-padding ion-no-margin">
+        <ion-item>
+          <ion-toggle [checked]="isDarkTheme" (ionChange)="toggleChange($event)">Modo oscuro</ion-toggle>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ng-template>
+</ion-modal>
