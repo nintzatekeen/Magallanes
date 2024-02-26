@@ -2,7 +2,7 @@ import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { IonToggle, IonButtons, IonModal, IonAlert, IonToast, IonProgressBar, IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonGrid, IonRow, IonCol, IonList, IonItem, IonIcon, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCheckbox } from '@ionic/angular/standalone';
 import { BuscadorComponent } from '../components/buscador/buscador.component';
 import { Anime } from '../model/anime';
-import { AnimeComponent } from '../anime/anime.component';
+import { AnimeComponent } from '../components/anime/anime.component';
 import { CommonModule } from '@angular/common';
 //import { from } from 'rxjs';
 import { AnimeServiceService } from '../service/anime-service.service';
@@ -10,7 +10,7 @@ import { RelationEntry } from '../model/relation_entry';
 import { Relation } from '../model/relation';
 import { FormsModule } from '@angular/forms';
 import { Browser } from '@capacitor/browser';
-import { TarjetaOpcionesComponent } from '../tarjeta-opciones/tarjeta-opciones.component';
+import { TarjetaOpcionesComponent } from '../components/tarjeta-opciones/tarjeta-opciones.component';
 import { ControladorBusqueda } from '../model/controlador_busqueda';
 
 @Component({
