@@ -16,35 +16,35 @@
           </ion-row>
           <ion-row>
             <ion-col size="3">
-              <div class="contenedorDatos ion-text-end">Tipo: </div> 
+              <div class="contenedorDatos ion-text-end">{{ 'tipo' | translate}}: </div> 
             </ion-col>
             <ion-col size="3">
               <div class="contenedorDatos negrita">{{ anime?.type }}</div> 
             </ion-col>
             <ion-col size="6">
-              <div class="contenedorDatos">F.inicio: <span class="negrita">{{  anime?.from | date:'dd/MM/yyyy' }}</span></div> 
+              <div class="contenedorDatos">{{'f_inicio' | translate }}: <span class="negrita">{{  anime?.from | date:'dd/MM/yyyy' }}</span></div> 
             </ion-col>
           </ion-row>
           <ion-row>
             <ion-col size="3">
-              <div class="contenedorDatos ion-text-end">Ep.: </div> 
+              <div class="contenedorDatos ion-text-end">{{'ep' | translate}}: </div> 
             </ion-col>
             <ion-col size="3">
               <div class="contenedorDatos negrita">{{ anime?.episodes }}</div> 
             </ion-col>
             <ion-col size="6">
-              <div class="contenedorDatos">F.fin: <span class="negrita">{{  anime?.to | date:'dd/MM/yyyy' }}</span></div> 
+              <div class="contenedorDatos">{{ 'f_fin' | translate }}: <span class="negrita">{{  anime?.to | date:'dd/MM/yyyy' }}</span></div> 
             </ion-col>
           </ion-row>
           <ion-row>
             <ion-col size="3">
-              <div class="contenedorDatos ion-text-end">Nota: </div> 
+              <div class="contenedorDatos ion-text-end">{{ 'nota' | translate }}: </div> 
             </ion-col>
             <ion-col size="3">
               <div class="contenedorDatos negrita">{{ anime?.score }}</div> 
             </ion-col>
             <ion-col size="6">
-              <div class="contenedorDatos">Estado: <span class="negrita">{{ anime?.status }}</span></div> 
+              <div class="contenedorDatos">{{ 'estado' | translate }}: <span class="negrita">{{ anime?.status }}</span></div> 
             </ion-col>
           </ion-row>
         </ion-grid>

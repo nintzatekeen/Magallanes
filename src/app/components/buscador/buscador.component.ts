@@ -5,16 +5,19 @@ import { InfiniteScrollCustomEvent } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { AnimeServiceService } from 'src/app/service/anime-service.service';
 import { Anime } from 'src/app/model/anime';
+
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-buscador',
   standalone: true,
   templateUrl: './buscador.component.html',
   styleUrls: ['./buscador.component.scss'],
-  imports: [IonSearchbar, IonContent, IonInfiniteScroll, IonList, IonAvatar, IonLabel, IonItem, IonInfiniteScrollContent, IonButton, IonIcon, IonGrid, IonRow, IonCol, CommonModule]
+  imports: [TranslateModule, IonSearchbar, IonContent, IonInfiniteScroll, IonList, IonAvatar, IonLabel, IonItem, IonInfiniteScrollContent, IonButton, IonIcon, IonGrid, IonRow, IonCol, CommonModule]
 })
 export class BuscadorComponent  implements OnInit {
 
-  constructor(private animeService: AnimeServiceService) { }
+  constructor(private animeService: AnimeServiceService, private translate: TranslateService) { }
   
   @Output() alSeleccionar = new EventEmitter();
   @Output() alAbrirFiltro = new EventEmitter();

@@ -6,6 +6,7 @@ import { Utilidades } from '../utils/utilidades';
 import { RelationEntry } from '../model/relation_entry';
 import { UtilBD } from '../utils/util_bd';
 import { ControladorBusqueda } from '../model/controlador_busqueda';
+import { TranslateService } from '@ngx-translate/core';
 
 export const API_URL = "https://api.jikan.moe/v4";
 
@@ -18,7 +19,7 @@ export class AnimeServiceService {
 
   obtenidos!: Map<number, RelationEntry>;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private translate: TranslateService) {
     this.obtenidos = new Map<number, RelationEntry>();
   }
 
@@ -126,7 +127,7 @@ export class AnimeServiceService {
           next: async (raw: any) => {
 
             if (controlador && controlador.cancelar) {
-              reject("Búsqueda cancelada");
+              reject(this.translate.instant("busqueda_cancelada"));
             } else {
               let anime: Anime = this.mapearAnime(raw?.data);
               if (anime) {
