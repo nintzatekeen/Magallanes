@@ -4,12 +4,14 @@ import { DatePipe } from '@angular/common';
 import { IonItem, IonGrid, IonAvatar, IonContent, IonRow, IonCol, IonBadge } from '@ionic/angular/standalone';
 import { Anime } from '../../model/anime';
 
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
+
 @Component({
   standalone: true,
   selector: 'app-anime',
   templateUrl: './anime.component.html',
   styleUrls: ['./anime.component.scss'],
-  imports: [IonItem, IonGrid, IonAvatar, IonContent, IonRow, IonCol, IonBadge, DatePipe]
+  imports: [TranslateModule, IonItem, IonGrid, IonAvatar, IonContent, IonRow, IonCol, IonBadge, DatePipe]
 })
 export class AnimeComponent  implements OnInit {
   @Input() anime: Anime | undefined;
@@ -19,7 +21,7 @@ export class AnimeComponent  implements OnInit {
   
 
 
-  constructor() { 
+  constructor(private translate: TranslateService) { 
   }
 
   ngOnInit() {}

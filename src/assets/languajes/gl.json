@@ -4,5 +4,13 @@
     "modo_oscuro": "Modo oscuro",
     "cerrar": "Pechar",
     "idioma": "Idioma",
-    "confirmacion_borrar_cache": "Está seguro de que desexa borrar o cache {{value}}?"
+    "confirmacion_borrar_cache": "Está seguro de que desexa borrar o cache {{value}}?",
+
+    "tipo": "Tipo",
+    "f_inicio": "D.inicio",
+    "f_fin": "F.fin",
+    "ep": "Ep.",
+    "nota": "Nota",
+    "estado": "Estado"
+
 }
