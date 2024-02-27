@@ -1,0 +1,8 @@
+{
+    "ajustes": "AJUSTES",
+    "borrar_cache": "Borrar caché",
+    "modo_oscuro": "Modo oscuro",
+    "cerrar": "Cerrar",
+    "idioma": "Idioma",
+    "confirmacion_borrar_cache": "¿Está seguro de que quiere borrar el cache {{value}}?"
+}

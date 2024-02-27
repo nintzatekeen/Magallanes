@@ -2,20 +2,23 @@
   <ng-template>
     <ion-header>
       <ion-toolbar>
-        <ion-title>AJUSTES</ion-title>
+        <ion-title>{{ 'ajustes' | translate }}</ion-title>
         <ion-buttons slot="end">
-          <ion-button (click)="setModalOpen(false)">Cerrar</ion-button>
+          <ion-button (click)="setModalOpen(false)">{{ 'cerrar' | translate }}</ion-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">
       <ion-list class="ion-no-padding ion-no-margin">
         <ion-item>
-          <ion-toggle [checked]="esModoOscuro" (ionChange)="alternarModo($event)" [disabled]="toggleDisabled()" #toggleModo>Modo oscuro</ion-toggle>
+          <ion-toggle [checked]="esModoOscuro" (ionChange)="alternarModo($event)" [disabled]="toggleDisabled()" #toggleModo>{{ 'modo_oscuro' | translate }}</ion-toggle>
           <ion-button (click)="cambiarAuto()" [fill]="fillBotonAuto()" #botonAuto>Auto</ion-button>
         </ion-item>
-        <ion-item [button]="true" (click)="borrarCache()">
-          Borrar caché
+        <ion-item [button]="true" (click)="borrarCache()">{{ 'borrar_cache' | translate }}</ion-item>
+        <ion-item>
+          <ion-select label="{{ 'idioma' | translate }}" (ionChange)="cambiarIdioma($event)" value="{{idiomaActual}}">
+            <ion-select-option *ngFor="let idioma of idiomas" value="{{idioma.codigo}}">{{ idioma.nombre }}</ion-select-option>
+          </ion-select>
         </ion-item>
       </ion-list>
     </ion-content>

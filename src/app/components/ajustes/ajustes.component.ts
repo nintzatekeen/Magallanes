@@ -1,17 +1,25 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonAlert, IonModal, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonList, IonItem, IonToggle } from '@ionic/angular/standalone';
+import { IonSelect, IonSelectOption, IonAlert, IonModal, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonList, IonItem, IonToggle } from '@ionic/angular/standalone';
 import { UtilBD } from 'src/app/utils/util_bd';
+import { CommonModule } from '@angular/common';
+
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 
 @Component({
   standalone: true,
   selector: 'app-ajustes',
   templateUrl: './ajustes.component.html',
   styleUrls: ['./ajustes.component.scss'],
-  imports: [IonAlert, IonModal, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonList, IonItem, IonToggle],
+  imports: [CommonModule, TranslateModule, IonSelect, IonSelectOption, IonAlert, IonModal, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonList, IonItem, IonToggle],
 })
 export class AjustesComponent  implements OnInit {
 
-  constructor() { }
+  idiomas = [
+    {codigo: 'es', nombre: 'Español'},
+    {codigo: 'gl', nombre: 'Galego'},
+  ];
+
+  constructor(private translate: TranslateService) { }
 
   @ViewChild('botonAuto') botonAuto!: IonButton;
   @ViewChild('toggleModo') toggleModo!: IonToggle;
@@ -115,7 +123,7 @@ export class AjustesComponent  implements OnInit {
       let cadena = "0 B";
 
       if (uso < 1000) {
-        cadena = `${uso} B`;
+        cadena = ``;
       } else if (uso >= 1000 && uso < 1000000) {
         let dec = uso / 1000;
         let formateado = (Math.round(dec * 100) / 100).toFixed(2);
@@ -136,8 +144,18 @@ export class AjustesComponent  implements OnInit {
 
   borrarCache() {
     this.obtenerEstimacionDeCache((tamano) => {
-      this.cambiarMensajeAlerta("Borrar cache", `¿Está seguro que quiere borrar el cache (${tamano})?`);
+      this.cambiarMensajeAlerta(this.translate.instant("borrar_cache"), this.translate.instant("confirmacion_borrar_cache", {value: tamano ? ` (${tamano})` : ''}));
       this.setAlertOpen(true);
     });
+  }
+
+  cambiarIdioma(event: Event) {
+    const lang = (event.target as HTMLSelectElement).value;
+    this.translate.use(lang);
+    localStorage.setItem('lang', lang);
+  }
+
+  get idiomaActual(): string {
+    return localStorage.getItem("lang") ?? this.translate.getBrowserLang() ?? 'es'
   }
 }
