@@ -8,7 +8,7 @@
     "modo_oscuro": "Modo oscuro",
     "cerrar": "Pechar",
     "idioma": "Idioma",
-    "confirmacion_borrar_cache": "Estás seguro de que queres borrar o cache {{value}}?",
+    "confirmacion_borrar_cache": "Estás seguro de que queres borrar o cache {{tamano}}?",
 
     "tipo": "Tipo",
     "f_inicio": "D.inicio",
