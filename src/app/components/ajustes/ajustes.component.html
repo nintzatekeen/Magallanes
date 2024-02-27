@@ -2,7 +2,7 @@
   <ng-template>
     <ion-header>
       <ion-toolbar>
-        <ion-title>{{ 'ajustes' | translate }}</ion-title>
+        <ion-title>{{ 'ajustes' | translate | uppercase }}</ion-title>
         <ion-buttons slot="end">
           <ion-button (click)="setModalOpen(false)">{{ 'cerrar' | translate }}</ion-button>
         </ion-buttons>
@@ -16,7 +16,7 @@
         </ion-item>
         <ion-item [button]="true" (click)="borrarCache()">{{ 'borrar_cache' | translate }}</ion-item>
         <ion-item>
-          <ion-select label="{{ 'idioma' | translate }}" (ionChange)="cambiarIdioma($event)" value="{{idiomaActual}}">
+          <ion-select label="{{ 'idioma' | translate }}" (ionChange)="cambiarIdioma($event)" value="{{idiomaActual}}" okText="{{ 'elegir' | translate }}" cancelText="{{ 'cancelar' | translate }}">
             <ion-select-option *ngFor="let idioma of idiomas" value="{{idioma.codigo}}">{{ idioma.nombre }}</ion-select-option>
           </ion-select>
         </ion-item>

@@ -11,13 +11,14 @@ import { Browser } from '@capacitor/browser';
 import { TarjetaOpcionesComponent } from '../components/tarjeta-opciones/tarjeta-opciones.component';
 import { ControladorBusqueda } from '../model/controlador_busqueda';
 import { AjustesComponent } from '../components/ajustes/ajustes.component';
+import { TranslateService, TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [AjustesComponent, TarjetaOpcionesComponent, IonToggle, IonButtons, IonModal, IonAlert, IonToast, IonProgressBar, IonHeader, IonToolbar, IonTitle, IonContent, BuscadorComponent, AnimeComponent, IonGrid, IonRow, IonCol, IonList, IonItem, IonButton, IonIcon, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCheckbox, CommonModule, FormsModule],
+  imports: [TranslateModule, AjustesComponent, TarjetaOpcionesComponent, IonToggle, IonButtons, IonModal, IonAlert, IonToast, IonProgressBar, IonHeader, IonToolbar, IonTitle, IonContent, BuscadorComponent, AnimeComponent, IonGrid, IonRow, IonCol, IonList, IonItem, IonButton, IonIcon, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCheckbox, CommonModule, FormsModule],
 })
 export class HomePage {
 
@@ -53,12 +54,12 @@ export class HomePage {
 
   public alertButtons = [
     {
-      text: 'No',
+      text: this.translate.instant("no"),
       role: 'cancel',
       handler: () => {},
     },
     {
-      text: 'Sí',
+      text: this.translate.instant("si"),
       role: 'confirm',
       handler: async () => {
         if (this.urlParaAbrir) {
@@ -99,7 +100,7 @@ export class HomePage {
   character: boolean = false;
   controladorBusqueda: ControladorBusqueda;
 
-  constructor(private animeService: AnimeServiceService) {
+  constructor(private animeService: AnimeServiceService, private translate: TranslateService) {
     this.tipos = new Map();
     this.controladorBusqueda = new ControladorBusqueda();
     this.controladorBusqueda.alAnadir = (a) => {
@@ -133,12 +134,12 @@ export class HomePage {
     .then(() => {
       this.barraProgreso = false;
       this.isToastOpen = true;
-      this.toastAviso.message = 'Se han encontrado ' + this.animes.length + ' resultados';
+      this.toastAviso.message = this.translate.instant("encontraron_resultados", {resultados: this.animes?.length ?? 0});
     }).catch((error) => {
       console.error(error);
       this.barraProgreso = false;
       this.isToastOpen = true;
-      this.toastAviso.message = error ?? 'Ha ocurrido un error; inténtelo de nuevo más adelante.';
+      this.toastAviso.message = error ?? this.translate.instant("ocurrido_error");
     });
   }
 
@@ -156,7 +157,7 @@ export class HomePage {
 
   async abrirNavegador(url: string) {
     this.urlParaAbrir = url;
-    this.cambiarMensajeAlerta("Abrir enlace", "Se va a abrir un enlace externo; ¿desea continuar?");
+    this.cambiarMensajeAlerta(this.translate.instant("abrir_enlace"), "Se va a abrir un enlace externo; ¿desea continuar?");
     this.isAlertOpen = true;
   }
 

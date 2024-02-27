@@ -37,12 +37,12 @@ export class AjustesComponent  implements OnInit {
 
   public alertButtons = [
     {
-      text: 'No',
+      text: this.translate.instant("no"),
       role: 'cancel',
       handler: () => {},
     },
     {
-      text: 'Sí',
+      text: this.translate.instant("si"),
       role: 'confirm',
       handler: () => {
         UtilBD.borrarCache(() => {});
@@ -144,7 +144,7 @@ export class AjustesComponent  implements OnInit {
 
   borrarCache() {
     this.obtenerEstimacionDeCache((tamano) => {
-      this.cambiarMensajeAlerta(this.translate.instant("borrar_cache"), this.translate.instant("confirmacion_borrar_cache", {value: tamano ? ` (${tamano})` : ''}));
+      this.cambiarMensajeAlerta(this.translate.instant("borrar_cache"), this.translate.instant("confirmacion_borrar_cache", {tamano: tamano ? ` (${tamano})` : ''}));
       this.setAlertOpen(true);
     });
   }

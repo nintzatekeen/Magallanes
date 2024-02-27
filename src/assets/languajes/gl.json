@@ -1,10 +1,14 @@
 {
-    "ajustes": "AXUSTES",
+    "si": "Si",
+    "no": "Non",
+    "elegir": "Escoller",
+    
+    "ajustes": "Axustes",
     "borrar_cache": "Borrar caché",
     "modo_oscuro": "Modo oscuro",
     "cerrar": "Pechar",
     "idioma": "Idioma",
-    "confirmacion_borrar_cache": "Está seguro de que desexa borrar o cache {{value}}?",
+    "confirmacion_borrar_cache": "Estás seguro de que queres borrar o cache {{value}}?",
 
     "tipo": "Tipo",
     "f_inicio": "D.inicio",
@@ -12,7 +16,21 @@
     "ep": "Ep.",
     "nota": "Nota",
     "estado": "Estado",
-    
-    "buscar_anime": "Procurar anime"
 
+    "buscar_anime": "Procurar anime",
+
+    "filtro_de_busqueda": "Filtro de procura",
+    "omitir": "Omitir",
+    "resumenes": "Resumos",
+    "otros": "Outros",
+    "personaje": "Personaxe",
+    "capitulos": "Capítulos",
+    "cancelar": "Cancelar",
+    "limpiar": "Limpar",
+    "encontraron_resultados": "Atopáronse {{resultados}} resultados",
+    "ocurrido_error": "Produciuse un error; téntao de novo máis tarde.",
+    "abrir_enlace": "Abrir ligazón",
+    "se_va_a_abrir_enlace": "Abrirase unha ligazón externa; ¿queres continuar?",
+
+    "busqueda_cancelada": "Procura cancelada"
 }
