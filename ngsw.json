@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1709068031651,
+  "timestamp": 1710022528775,
   "index": "https://nintzatekeen.github.io/Magallanes/index.html",
   "assetGroups": [
     {
@@ -13,7 +13,7 @@
       "urls": [
         "https://nintzatekeen.github.io/Magallanes/244.c0da9702e8d6e670.js",
         "https://nintzatekeen.github.io/Magallanes/352.c7c780e070e3d6db.js",
-        "https://nintzatekeen.github.io/Magallanes/500.a82a73ac2cdd7370.js",
+        "https://nintzatekeen.github.io/Magallanes/500.e4a315d0c9a5687f.js",
         "https://nintzatekeen.github.io/Magallanes/508.70b169afa80acb0c.js",
         "https://nintzatekeen.github.io/Magallanes/595.d2fb086689b94b9f.js",
         "https://nintzatekeen.github.io/Magallanes/620.6751f6791e68d187.js",
@@ -24,7 +24,7 @@
         "https://nintzatekeen.github.io/Magallanes/main.cbfc8a636f301664.js",
         "https://nintzatekeen.github.io/Magallanes/manifest.webmanifest",
         "https://nintzatekeen.github.io/Magallanes/polyfills.a8ae9b1c4522b100.js",
-        "https://nintzatekeen.github.io/Magallanes/runtime.014e75d057880a24.js",
+        "https://nintzatekeen.github.io/Magallanes/runtime.3c0dd267de7ad800.js",
         "https://nintzatekeen.github.io/Magallanes/styles.2665a0039809a3ed.css"
       ],
       "patterns": []
@@ -55,7 +55,7 @@
   "hashTable": {
     "https://nintzatekeen.github.io/Magallanes/244.c0da9702e8d6e670.js": "8c14159ebba4ea67d6d7151fa4a82c89fc6f2bb5",
     "https://nintzatekeen.github.io/Magallanes/352.c7c780e070e3d6db.js": "8570aa6d4b9c70680943fdb04d36560cbe781fff",
-    "https://nintzatekeen.github.io/Magallanes/500.a82a73ac2cdd7370.js": "76a92f3eff415a440103133e6ccaacf6ec3708ac",
+    "https://nintzatekeen.github.io/Magallanes/500.e4a315d0c9a5687f.js": "7de54b9444bef6a9f5cae970171db6ed973d8ed4",
     "https://nintzatekeen.github.io/Magallanes/508.70b169afa80acb0c.js": "ba734c0757d8fa8d16130d127cccd56e54e5f113",
     "https://nintzatekeen.github.io/Magallanes/595.d2fb086689b94b9f.js": "163ad8815a6894e77d715701de57c0a1cb1bd233",
     "https://nintzatekeen.github.io/Magallanes/620.6751f6791e68d187.js": "61877f2e54f8741ae25afbc365e6ebd4d52c97e0",
@@ -69,14 +69,14 @@
     "https://nintzatekeen.github.io/Magallanes/assets/icon/visibility.svg": "1445b5b4d09371ee700c9461fe0b2760bde4d83f",
     "https://nintzatekeen.github.io/Magallanes/assets/icons/icon-192x192.png": "e2d221712ae07306185e6920279c3edbef42ef79",
     "https://nintzatekeen.github.io/Magallanes/assets/icons/icon-512x512.png": "6a0d2c017cc09b0386a36d0de993ad4ed2125ebf",
-    "https://nintzatekeen.github.io/Magallanes/assets/languajes/es.json": "9e0974cc2af5e1371b9d5ba66a7cf1e16c270271",
-    "https://nintzatekeen.github.io/Magallanes/assets/languajes/gl.json": "9fb1a734e2230420311a6867206aa86d66969175",
+    "https://nintzatekeen.github.io/Magallanes/assets/languajes/es.json": "8dcccf82c56398f21781cacab9fe02cb8695c379",
+    "https://nintzatekeen.github.io/Magallanes/assets/languajes/gl.json": "4813f5118284844da68e4ceca5e57df558d52e0d",
     "https://nintzatekeen.github.io/Magallanes/assets/shapes.svg": "5413e95adabcb2cb639970051f55e0ddb64ace53",
-    "https://nintzatekeen.github.io/Magallanes/index.html": "17c9fe63c6bfabaaab13b4e2e86f100c3c119549",
+    "https://nintzatekeen.github.io/Magallanes/index.html": "06d02e5c79f69a01a1b56477475e777b75d280d3",
     "https://nintzatekeen.github.io/Magallanes/main.cbfc8a636f301664.js": "9080ffe00ff0ef85c3ae774c89f21bbf76512a4f",
     "https://nintzatekeen.github.io/Magallanes/manifest.webmanifest": "0194aea392c72a1f83ad7967caf5cef4c3e2a4c3",
     "https://nintzatekeen.github.io/Magallanes/polyfills.a8ae9b1c4522b100.js": "8a6934e5c13c14028b0fba0889fa807f43b08797",
-    "https://nintzatekeen.github.io/Magallanes/runtime.014e75d057880a24.js": "549779fa68e78bd48bd6d2ee705ba7b1bd1b4fa7",
+    "https://nintzatekeen.github.io/Magallanes/runtime.3c0dd267de7ad800.js": "771238dc9a1c9779b262444f9fac84f753c1e63e",
     "https://nintzatekeen.github.io/Magallanes/styles.2665a0039809a3ed.css": "987497e69077a49d025899362f0c142b47487962"
   },
   "navigationUrls": [
