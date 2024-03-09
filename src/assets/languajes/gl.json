@@ -17,9 +17,9 @@
     "nota": "Nota",
     "estado": "Estado",
 
-    "buscar_anime": "Procurar anime",
+    "buscar_anime": "Buscar anime",
 
-    "filtro_de_busqueda": "Filtro de procura",
+    "filtro_de_busqueda": "Filtro de busca",
     "omitir": "Omitir",
     "resumenes": "Resumos",
     "otros": "Outros",
@@ -30,7 +30,9 @@
     "encontraron_resultados": "Atopáronse {{resultados}} resultados",
     "ocurrido_error": "Produciuse un error; téntao de novo máis tarde.",
     "abrir_enlace": "Abrir ligazón",
-    "se_va_a_abrir_enlace": "Abrirase unha ligazón externa; ¿queres continuar?",
+    "se_va_a_abrir_enlace": "Abrirase unha ligazón externa; queres continuar?",
+    "limpiar_busqueda": "Limpar busca",
+    "desea_eliminar_busqueda": "Queres eliminar os resultados da busca?",
 
-    "busqueda_cancelada": "Procura cancelada"
+    "busqueda_cancelada": "Busca cancelada"
 }

@@ -157,7 +157,7 @@ export class HomePage {
 
   async abrirNavegador(url: string) {
     this.urlParaAbrir = url;
-    this.cambiarMensajeAlerta(this.translate.instant("abrir_enlace"), "Se va a abrir un enlace externo; ¿desea continuar?");
+    this.cambiarMensajeAlerta(this.translate.instant("abrir_enlace"), this.translate.instant("se_va_a_abrir_enlace"));
     this.isAlertOpen = true;
   }
 
@@ -177,7 +177,7 @@ export class HomePage {
   }
 
   solicitarLimpiar() {
-    this.cambiarMensajeAlerta("Limpiar búsqueda", "¿Desea eliminar los resultados de su búsqueda?");
+    this.cambiarMensajeAlerta(this.translate.instant("limpiar_busqueda"), this.translate.instant("desea_eliminar_busqueda"));
     this.isAlertOpen = true;
   }
 
