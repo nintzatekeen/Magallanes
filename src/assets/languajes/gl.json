@@ -12,7 +12,7 @@
 
     "tipo": "Tipo",
     "f_inicio": "D.inicio",
-    "f_fin": "F.fin",
+    "f_fin": "D.fin",
     "ep": "Ep.",
     "nota": "Nota",
     "estado": "Estado",
