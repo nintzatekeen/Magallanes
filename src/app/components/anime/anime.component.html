@@ -47,6 +47,14 @@
               <div class="contenedorDatos">{{ 'estado' | translate }}: <span class="negrita">{{ anime?.status }}</span></div> 
             </ion-col>
           </ion-row>
+          <ion-row *ngIf="anime?.duration">
+            <ion-col size="6">
+              <div class="contenedorDatos"></div> 
+            </ion-col>
+            <ion-col size="6">
+              <div class="contenedorDatos">{{ 'duracion' | translate }}: <span class="negrita">{{ anime?.duration }}</span></div> 
+            </ion-col>
+          </ion-row>
         </ion-grid>
       </ion-col>
     </ion-row>

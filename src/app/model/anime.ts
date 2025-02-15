@@ -13,4 +13,5 @@ export interface Anime {
     to: Date | null;
     relations: Relation[]
     url: string;
+    duration: string | null;
 }

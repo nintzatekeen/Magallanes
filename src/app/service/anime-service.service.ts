@@ -45,6 +45,7 @@ export class AnimeServiceService {
       to: raw.aired?.to ? new Date(raw.aired?.to) : null,
       relations: raw.relations ?? [],
       url: raw.url,
+      duration: raw.duration ?? null,
     }
   }
 
