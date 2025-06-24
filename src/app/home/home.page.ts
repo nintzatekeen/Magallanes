@@ -192,7 +192,6 @@ export class HomePage {
   }
 
   convertirATextoPlano(): string {
-    console.log("joder", this.animesVisibles);
     if (!this.animesVisibles) {
       return "";
     }
@@ -206,16 +205,27 @@ export class HomePage {
   exportarTxt() {
     const txt = this.convertirATextoPlano();
     
+    const refAnime = this.primerAnimeVisible();
+
+    const animeId = refAnime?.id ?? '';
 
     const blob = new Blob([txt], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `anime.txt`;
+
+    a.download = `anime_${animeId}.txt`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-
   }
+
+  private primerAnimeVisible(): Anime | undefined {
+    if (!this.animesVisibles || this.animesVisibles.length == 0) {
+      return undefined
+    }
+    return this.animesVisibles[0];
+  }
+
 }
