@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1739717478983,
+  "timestamp": 1750777383095,
   "index": "https://nintzatekeen.github.io/Magallanes/index.html",
   "assetGroups": [
     {
@@ -13,7 +13,7 @@
       "urls": [
         "https://nintzatekeen.github.io/Magallanes/244.c0da9702e8d6e670.js",
         "https://nintzatekeen.github.io/Magallanes/352.512b28eaf3144160.js",
-        "https://nintzatekeen.github.io/Magallanes/500.b8274bffd1b448ee.js",
+        "https://nintzatekeen.github.io/Magallanes/500.459d24087526a906.js",
         "https://nintzatekeen.github.io/Magallanes/508.70b169afa80acb0c.js",
         "https://nintzatekeen.github.io/Magallanes/595.d2fb086689b94b9f.js",
         "https://nintzatekeen.github.io/Magallanes/620.483ea2877c1d36b7.js",
@@ -24,7 +24,7 @@
         "https://nintzatekeen.github.io/Magallanes/main.cbfc8a636f301664.js",
         "https://nintzatekeen.github.io/Magallanes/manifest.webmanifest",
         "https://nintzatekeen.github.io/Magallanes/polyfills.a8ae9b1c4522b100.js",
-        "https://nintzatekeen.github.io/Magallanes/runtime.ac34f831af1631ab.js",
+        "https://nintzatekeen.github.io/Magallanes/runtime.3251e63cb9310514.js",
         "https://nintzatekeen.github.io/Magallanes/styles.2665a0039809a3ed.css"
       ],
       "patterns": []
@@ -37,6 +37,7 @@
         "ignoreVary": true
       },
       "urls": [
+        "https://nintzatekeen.github.io/Magallanes/assets/icon/export.svg",
         "https://nintzatekeen.github.io/Magallanes/assets/icon/favicon.ico",
         "https://nintzatekeen.github.io/Magallanes/assets/icon/filter.svg",
         "https://nintzatekeen.github.io/Magallanes/assets/icon/filter_alt.svg",
@@ -55,13 +56,14 @@
   "hashTable": {
     "https://nintzatekeen.github.io/Magallanes/244.c0da9702e8d6e670.js": "8c14159ebba4ea67d6d7151fa4a82c89fc6f2bb5",
     "https://nintzatekeen.github.io/Magallanes/352.512b28eaf3144160.js": "48803270e0eb66128a4075cee90f30c4a505be67",
-    "https://nintzatekeen.github.io/Magallanes/500.b8274bffd1b448ee.js": "c7ec7d710e5fde25bb59f7baebdb61aa72ec84d2",
+    "https://nintzatekeen.github.io/Magallanes/500.459d24087526a906.js": "7e8d8b47c2a8160548cb38ceb2f818634fab4ab0",
     "https://nintzatekeen.github.io/Magallanes/508.70b169afa80acb0c.js": "ba734c0757d8fa8d16130d127cccd56e54e5f113",
     "https://nintzatekeen.github.io/Magallanes/595.d2fb086689b94b9f.js": "163ad8815a6894e77d715701de57c0a1cb1bd233",
     "https://nintzatekeen.github.io/Magallanes/620.483ea2877c1d36b7.js": "4463a0e2e544ee2f3077d4f6d1ec4681dc0a8ac1",
     "https://nintzatekeen.github.io/Magallanes/800.49d038d377867aab.js": "999eb89cf86711fdc0929154bb7cecd60f119fc5",
     "https://nintzatekeen.github.io/Magallanes/88.d7b2ac6c3f60bb88.js": "f54022273656458dfb430e1f65b686be39d3a8dd",
     "https://nintzatekeen.github.io/Magallanes/924.494a8f738484a704.js": "26b4da2bc52bc027e5a56ecce8e751d269ce55ba",
+    "https://nintzatekeen.github.io/Magallanes/assets/icon/export.svg": "c3bae89fde65cfea8c9df81914787a70dab7ad17",
     "https://nintzatekeen.github.io/Magallanes/assets/icon/favicon.ico": "e9a1b78704f8608df53a1451de9b213c87db810c",
     "https://nintzatekeen.github.io/Magallanes/assets/icon/filter.svg": "7023a54375953948a48f4fd2b6a172bcc2f743f9",
     "https://nintzatekeen.github.io/Magallanes/assets/icon/filter_alt.svg": "1d0e710161aa265fa9ba39790911f8a709195362",
@@ -69,14 +71,14 @@
     "https://nintzatekeen.github.io/Magallanes/assets/icon/visibility.svg": "1445b5b4d09371ee700c9461fe0b2760bde4d83f",
     "https://nintzatekeen.github.io/Magallanes/assets/icons/icon-192x192.png": "e2d221712ae07306185e6920279c3edbef42ef79",
     "https://nintzatekeen.github.io/Magallanes/assets/icons/icon-512x512.png": "6a0d2c017cc09b0386a36d0de993ad4ed2125ebf",
-    "https://nintzatekeen.github.io/Magallanes/assets/languajes/es.json": "0dbfe33b434f8febaea3aff1480aabbfc2dcf04c",
-    "https://nintzatekeen.github.io/Magallanes/assets/languajes/gl.json": "076aee33500f049e9af3fdbc8796de423e25cb1f",
+    "https://nintzatekeen.github.io/Magallanes/assets/languajes/es.json": "f00e893ce9888251bd94d822438b368cf5be0529",
+    "https://nintzatekeen.github.io/Magallanes/assets/languajes/gl.json": "a825cbc4b428bcde7ac6d17a865de2c190127d19",
     "https://nintzatekeen.github.io/Magallanes/assets/shapes.svg": "5413e95adabcb2cb639970051f55e0ddb64ace53",
-    "https://nintzatekeen.github.io/Magallanes/index.html": "ac8002bf3efb67c8b8954c5fe1d8a0d67eaf43ed",
+    "https://nintzatekeen.github.io/Magallanes/index.html": "7db8b99e91c3a905b5708f50eef1e93997822b0a",
     "https://nintzatekeen.github.io/Magallanes/main.cbfc8a636f301664.js": "9080ffe00ff0ef85c3ae774c89f21bbf76512a4f",
     "https://nintzatekeen.github.io/Magallanes/manifest.webmanifest": "0194aea392c72a1f83ad7967caf5cef4c3e2a4c3",
     "https://nintzatekeen.github.io/Magallanes/polyfills.a8ae9b1c4522b100.js": "8a6934e5c13c14028b0fba0889fa807f43b08797",
-    "https://nintzatekeen.github.io/Magallanes/runtime.ac34f831af1631ab.js": "259340ef539d5fad3da027099021a6e466a9022f",
+    "https://nintzatekeen.github.io/Magallanes/runtime.3251e63cb9310514.js": "89784efde5aad2cac9c0d01a311a024110d95f70",
     "https://nintzatekeen.github.io/Magallanes/styles.2665a0039809a3ed.css": "987497e69077a49d025899362f0c142b47487962"
   },
   "navigationUrls": [
