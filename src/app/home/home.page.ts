@@ -190,4 +190,32 @@ export class HomePage {
     this.alerta.header = titulo;
     this.alerta.message = mensaje;
   }
+
+  convertirATextoPlano(): string {
+    console.log("joder", this.animesVisibles);
+    if (!this.animesVisibles) {
+      return "";
+    }
+    let txt = "";
+    this.animesVisibles.forEach((anime, idx) => {
+      txt += `${idx + 1}:\t${anime.title} | ${anime.url}\n`
+    });
+    return txt;
+  }
+
+  exportarTxt() {
+    const txt = this.convertirATextoPlano();
+    
+
+    const blob = new Blob([txt], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `anime.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+  }
 }

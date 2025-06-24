@@ -150,17 +150,17 @@ export class AnimeServiceService {
         });
     }, 1000));
     }
-}
-
-async manejarAnime(anime: any, omisiones: string[], lista: Anime[], controlador: ControladorBusqueda) {
-  lista.push(anime);
-  controlador.alAnadir(anime);
-  lista.sort(Utilidades.comparador);
-  let relaciones = anime.relations;
-  let nuevasRelaciones = this.anadirRelaciones(relaciones, omisiones);
-  for await (let nuevaRelacion of nuevasRelaciones) {
-    await this.sagase(nuevaRelacion, omisiones, lista, controlador);
   }
-}
+
+  async manejarAnime(anime: any, omisiones: string[], lista: Anime[], controlador: ControladorBusqueda) {
+    lista.push(anime);
+    controlador.alAnadir(anime);
+    lista.sort(Utilidades.comparador);
+    let relaciones = anime.relations;
+    let nuevasRelaciones = this.anadirRelaciones(relaciones, omisiones);
+    for await (let nuevaRelacion of nuevasRelaciones) {
+      await this.sagase(nuevaRelacion, omisiones, lista, controlador);
+    }
+  }
 
 }

@@ -47,6 +47,9 @@
               <ion-button class="ion-float-right" fill="clear" shape="circle" (click)="mostrarVisibilidad()" id="botonVisibilidad" #botonVisibilidad>
                 <ion-icon slot="icon-only" src="assets/icon/visibility.svg"></ion-icon>
               </ion-button>
+              <ion-button class="ion-float-right" fill="clear" shape="circle" *ngIf="!barraProgreso && animes" (click)="exportarTxt()" [title]="'exportar'  | translate">
+                <ion-icon slot="icon-only" src="assets/icon/export.svg"></ion-icon>
+              </ion-button>
             </ion-col>
           </ion-row>
         </ion-grid>
