@@ -8,7 +8,7 @@ import { UtilBD } from '../utils/util_bd';
 import { ControladorBusqueda } from '../model/controlador_busqueda';
 import { TranslateService } from '@ngx-translate/core';
 
-export const API_URL = "https://api.jikan.moe/v4";
+export const API_URL = "https://api.tenrai.org/v1";
 
 @Injectable({
   providedIn: 'root'
